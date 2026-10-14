@@ -4,25 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0d3b26">
+<meta name="description" content="PREP PRO — 18-minutowy plan przygotowania motorycznego zawodnika GKS Olimpia Grudziądz.">
 <title>PREP PRO — GKS Olimpia Grudziądz</title>
 <style>
 :root {
-  --green-dark: #0a2e1d;
-  --green: #0f4a2f;
-  --green-mid: #166540;
+  --green: #0d3b26;
+  --green2: #145939;
   --gold: #c8a45d;
-  --gold-light: #f5ecd7;
-  --pale: #ebf4ee;
-  --ink: #122119;
-  --muted: #5e7065;
-  --line: #d6e2da;
+  --gold-pale: #f7f0e1;
+  --pale: #eaf5ee;
+  --ink: #13241b;
+  --muted: #607166;
+  --line: #d8e4dc;
   --paper: #ffffff;
   --bg: #f2f6f3;
-  --danger: #c93b3b;
-  --warn: #d9822b;
-  --ok: #1b8a4b;
-  --shadow: 0 10px 28px rgba(10, 46, 29, 0.08);
-  --radius: 18px;
+  --shadow: 0 12px 32px rgba(13, 59, 38, 0.08);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -34,445 +30,314 @@ body {
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
 }
-button, input, select { font: inherit; }
-button { cursor: pointer; }
+button { font: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
-/* LAYOUT & HEADER */
-.app { max-width: 1120px; margin: 0 auto; padding: 12px 12px 60px; }
-.topbar {
-  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+.app { max-width: 1000px; margin: auto; padding: 16px 14px 44px; }
+
+/* HERO HEADER Z HERBEM OLIMPII */
+.hero {
+  background: linear-gradient(135deg, #09291a 0%, #0f4a2f 65%, #166540 100%);
   color: #fff;
-  border-radius: 22px;
-  padding: 18px 20px;
+  border-radius: 26px;
+  padding: 24px 26px;
   box-shadow: var(--shadow);
   border-bottom: 4px solid var(--gold);
   position: relative;
   overflow: hidden;
 }
-.topbar-row {
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgba(200, 164, 93, 0.2);
+  border-radius: 50%;
+  right: -80px;
+  top: -90px;
+  box-shadow: 0 0 0 28px rgba(255, 255, 255, 0.04), 0 0 0 58px rgba(255, 255, 255, 0.02);
+}
+.brand {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 14px;
+  position: relative;
+  z-index: 1;
   flex-wrap: wrap;
 }
-.brand { display: flex; align-items: center; gap: 14px; }
-.crest { width: 54px; height: 66px; flex-shrink: 0; filter: drop-shadow(0 4px 8px rgba(0,0,0,.25)); }
-.brand-text small {
+.brand-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.crest {
+  width: 56px;
+  height: 68px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+}
+.club-sub {
   display: block;
-  color: var(--gold);
+  font-size: .74rem;
   font-weight: 800;
   letter-spacing: .12em;
-  font-size: .72rem;
   text-transform: uppercase;
+  color: var(--gold);
 }
-.brand-text h1 {
-  margin: 2px 0 0;
-  font-size: clamp(1.2rem, 3.5vw, 1.65rem);
-  font-weight: 900;
-  letter-spacing: -.02em;
+.logo {
+  font-weight: 950;
+  letter-spacing: .04em;
+  font-size: clamp(1.35rem, 4vw, 2rem);
+  line-height: 1.05;
 }
-.user-Controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.user-badge {
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.22);
-  color: #fff;
-  padding: 8px 13px;
-  border-radius: 12px;
-  font-size: .84rem;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-.user-badge b { color: var(--gold); }
-.btn-top {
-  background: var(--gold);
-  color: var(--green-dark);
-  border: 0;
-  padding: 8px 13px;
-  border-radius: 11px;
-  font-weight: 800;
-  font-size: .82rem;
-}
-.btn-top.ghost {
-  background: rgba(255,255,255,.1);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.22);
-}
-
-/* NAV TABS */
-.nav-tabs {
-  display: flex;
-  gap: 8px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,.14);
-  overflow-x: auto;
-}
-.tab-btn {
-  background: rgba(255,255,255,.08);
-  color: #dce7e0;
-  border: 1px solid transparent;
-  padding: 9px 15px;
-  border-radius: 11px;
-  font-weight: 750;
-  font-size: .84rem;
-  white-space: nowrap;
-}
-.tab-btn.active {
-  background: #fff;
-  color: var(--green-dark);
-  font-weight: 850;
-}
-
-/* PROFILE SELECTOR MODAL / SCREEN */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 28, 18, 0.78);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.modal-backdrop.show { display: flex; }
-.modal {
-  background: var(--paper);
-  border-radius: 22px;
-  max-width: 500px;
-  width: 100%;
-  padding: 24px;
-  box-shadow: 0 24px 60px rgba(0,0,0,.3);
-  border-top: 5px solid var(--gold);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.modal h2 { margin: 0 0 6px; font-size: 1.35rem; }
-.modal p { margin: 0 0 18px; color: var(--muted); font-size: .9rem; }
-.field { margin-bottom: 14px; }
-.field label { display: block; font-size: .78rem; font-weight: 800; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; letter-spacing: .06em; }
-.field select, .field input {
-  width: 100%;
-  padding: 11px 13px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: #f9fbf9;
-  font-weight: 650;
-}
-.role-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-.role-btn {
-  padding: 12px;
-  border-radius: 12px;
-  border: 2px solid var(--line);
-  background: #fff;
-  font-weight: 800;
-  text-align: center;
-}
-.role-btn.active { border-color: var(--green); background: var(--pale); color: var(--green-dark); }
-
-/* PLAYER WORKOUT VIEW */
-.date-bar {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 12px 16px;
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-.date-bar-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.date-bar input[type="date"] {
-  padding: 7px 11px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  font-weight: 750;
-  background: var(--bg);
-}
-.status-pill {
-  padding: 6px 12px;
+.pill {
   border-radius: 999px;
-  font-size: .78rem;
-  font-weight: 850;
+  padding: 7px 13px;
+  background: var(--gold);
+  color: #09291a;
+  font-weight: 900;
+  font-size: .8rem;
+  white-space: nowrap;
+  letter-spacing: .04em;
 }
-.status-pill.done { background: #dff5e6; color: var(--ok); }
-.status-pill.partial { background: #fff1db; color: var(--warn); }
-.status-pill.empty { background: #eef2ef; color: var(--muted); }
-
-.player-grid {
+.hero h1 {
+  font-size: clamp(1.65rem, 4.5vw, 2.65rem);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  margin: 20px 0 8px;
+  max-width: 620px;
+  position: relative;
+  z-index: 1;
+}
+.hero h1 span { color: var(--gold); }
+.hero p {
+  color: #d7e6dc;
+  max-width: 580px;
+  margin: 0;
+  font-size: .95rem;
+  position: relative;
+  z-index: 1;
+}
+.summary {
   display: grid;
-  grid-template-columns: 290px minmax(0, 1fr);
-  gap: 16px;
-  margin-top: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+.stat {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 11px 14px;
+  border-radius: 15px;
+}
+.stat b { display: block; font-size: 1.3rem; color: #fff; }
+.stat small { color: #d5e7da; font-size: .78rem; }
+
+/* MAIN LAYOUT */
+.layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 18px;
   align-items: start;
 }
-.card {
+.panel, .workout {
   background: var(--paper);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 22px;
   box-shadow: var(--shadow);
-  padding: 18px;
 }
+.panel { padding: 16px; position: sticky; top: 12px; }
 .section-label {
   font-size: .73rem;
   text-transform: uppercase;
-  letter-spacing: .1em;
+  letter-spacing: .11em;
   font-weight: 850;
   color: var(--muted);
   margin: 0 0 10px;
 }
-
-/* STAGE SIDEBAR */
 .stage-btn {
   width: 100%;
   border: 1px solid transparent;
   background: transparent;
   text-align: left;
   display: flex;
-  gap: 10px;
+  gap: 11px;
   align-items: center;
   padding: 10px;
-  border-radius: 12px;
+  border-radius: 14px;
   margin: 4px 0;
   color: var(--ink);
+  transition: background .15s;
 }
 .stage-btn:hover { background: #f3f7f4; }
-.stage-btn.active { background: var(--pale); border-color: #b7d6c2; }
-.stage-num {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+.stage-btn.active { background: var(--pale); border-color: #b4d5c0; }
+.stage-number {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
   background: #e8efe9;
   display: grid;
   place-items: center;
   font-weight: 900;
-  font-size: .88rem;
   flex-shrink: 0;
 }
-.stage-btn.active .stage-num { background: var(--green); color: #fff; }
-.stage-btn.done .stage-num { background: var(--ok); color: #fff; }
-.stage-info { flex: 1; min-width: 0; }
-.stage-info b { display: block; font-size: .86rem; line-height: 1.2; }
-.stage-info small { color: var(--muted); font-size: .74rem; }
+.stage-btn.active .stage-number { background: var(--green2); color: #fff; }
+.stage-text { min-width: 0; flex: 1; }
+.stage-text b { display: block; font-size: .88rem; line-height: 1.2; }
+.stage-text small { display: block; color: var(--muted); font-size: .75rem; margin-top: 3px; }
+.checkmark { color: var(--green2); font-weight: 900; }
 
-.progress-box { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
-.progress-bar { height: 9px; background: #e6eee8; border-radius: 99px; overflow: hidden; margin: 8px 0; }
-.progress-bar span { display: block; height: 100%; background: var(--ok); width: 0; transition: width .25s; }
+.overall { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.progress-line { height: 8px; background: #e7eee8; border-radius: 99px; overflow: hidden; margin: 8px 0; }
+.progress-line span { display: block; height: 100%; background: var(--green2); width: 0; transition: width .2s; }
 
-/* EXERCISE CARD (CLEAN - NO VISUALIZATION) */
-.ex-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-.eyebrow { font-size: .76rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; color: var(--green-mid); }
-.tag { font-size: .75rem; background: var(--gold-light); color: #6e521b; border-radius: 999px; padding: 5px 11px; font-weight: 800; }
-.ex-title { font-size: clamp(1.35rem, 3.5vw, 1.9rem); margin: 10px 0 6px; line-height: 1.15; letter-spacing: -.02em; }
-.ex-dose { font-size: 1.1rem; font-weight: 900; color: var(--green-mid); margin-bottom: 14px; }
+/* WORKOUT CARD */
+.workout { padding: clamp(18px, 3vw, 28px); }
+.topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.eyebrow { font-size: .78rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; color: var(--green2); }
+.tag { font-size: .76rem; background: var(--gold-pale); color: #694d16; border-radius: 999px; padding: 6px 11px; font-weight: 800; }
 
-.goal-banner {
-  background: #eff7f1;
+.workout h2 {
+  font-size: clamp(1.5rem, 3.8vw, 2.15rem);
+  line-height: 1.12;
+  letter-spacing: -.03em;
+  margin: 12px 0 8px;
+}
+.dose { font-size: 1.15rem; font-weight: 900; color: var(--green2); margin-bottom: 16px; }
+
+.goal-box {
+  background: #eff7f2;
   border-left: 4px solid var(--gold);
-  padding: 10px 13px;
   border-radius: 10px;
-  font-size: .84rem;
-  margin-bottom: 14px;
+  padding: 11px 14px;
+  margin: 14px 0;
+  font-size: .88rem;
 }
-.goal-banner b { color: var(--green-dark); text-transform: uppercase; font-size: .75rem; letter-spacing: .05em; margin-right: 6px; }
-
-.how-box {
-  background: #f7faf8;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 15px;
-  margin-bottom: 14px;
+.goal-box b {
+  color: var(--green);
+  text-transform: uppercase;
+  font-size: .75rem;
+  letter-spacing: .06em;
+  margin-right: 6px;
 }
-.how-box h3 { margin: 0 0 6px; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.how-box p { margin: 0; font-size: .95rem; color: #26382d; }
 
-.equip-line { font-size: .85rem; color: var(--muted); margin-bottom: 16px; }
+.instruction {
+  background: #f6f9f6;
+  border: 1px solid #e3ece5;
+  border-radius: 16px;
+  padding: 16px;
+  margin: 14px 0;
+}
+.instruction h3 { font-size: .84rem; letter-spacing: .05em; color: var(--muted); margin: 0 0 6px; }
+.instruction p { margin: 0; color: #2b3d31; font-size: .96rem; }
 
-.check-big {
+.equipment { color: var(--muted); font-size: .88rem; margin: 12px 0 18px; }
+
+.complete {
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 14px 16px;
   background: var(--pale);
   border: 2px solid #b8d8c3;
-  padding: 14px 16px;
   border-radius: 14px;
-  font-weight: 850;
-  font-size: .98rem;
+  font-weight: 800;
   cursor: pointer;
   user-select: none;
-  transition: all .15s;
 }
-.check-big.checked { background: #daf2e3; border-color: var(--ok); color: var(--green-dark); }
-.check-big input { width: 22px; height: 22px; accent-color: var(--ok); }
+.complete input { width: 22px; height: 22px; accent-color: var(--green2); cursor: pointer; }
 
-.nav-actions { display: flex; gap: 10px; margin-top: 14px; }
+.actions { display: flex; gap: 10px; margin-top: 16px; }
 .btn {
   border: 0;
-  border-radius: 12px;
+  border-radius: 13px;
   padding: 12px 16px;
-  font-weight: 800;
-  font-size: .9rem;
+  font-weight: 850;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
 }
-.btn.primary { background: var(--green); color: #fff; flex: 1; }
-.btn.primary:hover { background: var(--green-dark); }
-.btn.gold { background: var(--gold); color: var(--green-dark); }
-.btn.secondary { background: #eef3ef; color: var(--ink); border: 1px solid var(--line); }
+.btn.primary { background: var(--green2); color: #fff; flex: 1; }
+.btn.primary:hover { background: var(--green); }
+.btn.secondary { background: #eef3ef; color: var(--green); border: 1px solid var(--line); }
 .btn:disabled { opacity: .4; cursor: not-allowed; }
 
 /* TIMER */
-.timer-strip {
+.timerbox {
+  margin-top: 18px;
+  background: #f6f9f6;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.timerbox small { display: block; color: var(--muted); font-weight: 750; font-size: .74rem; letter-spacing: .04em; }
+.time { font-size: 1.7rem; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--green); }
+.timer-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+.timer-actions .btn { padding: 9px 13px; font-size: .86rem; }
+
+/* ALL EXERCISES LIST */
+.list { margin-top: 18px; }
+.list summary { cursor: pointer; font-weight: 850; padding: 6px 0; font-size: 1rem; }
+.all-stage { padding: 12px 0; border-top: 1px solid var(--line); margin-top: 10px; }
+.all-stage h3 { font-size: .96rem; margin: 4px 0 8px; color: var(--green); }
+.exercise-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 6px; border-radius: 10px; cursor: pointer; }
+.exercise-row:hover { background: #f5f9f6; }
+.exercise-row input { margin-top: 3px; accent-color: var(--green2); width: 19px; height: 19px; }
+.exercise-row div { flex: 1; }
+.exercise-row b { display: block; font-size: .9rem; }
+.exercise-row small { color: var(--muted); }
+
+.finish {
+  display: none;
+  background: #eaf6ee;
+  border: 2px solid var(--green2);
+  border-radius: 18px;
+  padding: 18px;
   margin-top: 16px;
-  background: #f7faf8;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 12px 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
 }
-.timer-val { font-size: 1.55rem; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--green-dark); }
-.timer-btns { display: flex; gap: 6px; }
-.timer-btns .btn { padding: 8px 12px; font-size: .82rem; }
+.finish.show { display: block; }
+.finish h3 { margin: 0 0 6px; color: var(--green); }
+.notice { font-size: .8rem; color: var(--muted); margin: 12px 0 0; }
+.footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 24px 8px 0; }
 
-/* QUICK CHECKLIST IN PLAYER VIEW */
-.stage-checklist { margin-top: 16px; }
-.check-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 11px;
-  border: 1px solid var(--line);
-  margin-bottom: 7px;
-  background: #fff;
-  cursor: pointer;
-}
-.check-row.active-ex { border-color: var(--green); background: #f4faf6; }
-.check-row-left { display: flex; align-items: center; gap: 10px; flex: 1; }
-.check-row input { width: 19px; height: 19px; accent-color: var(--ok); }
-.check-row b { font-size: .88rem; display: block; }
-.check-row small { color: var(--muted); font-size: .76rem; }
-
-/* COACH DASHBOARD & CALENDAR MATRIX */
-.coach-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-.filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.filter-group select, .filter-group input {
-  padding: 9px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  background: #fff;
-  font-weight: 750;
-}
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.kpi-card {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 15px;
-  padding: 14px;
-}
-.kpi-card small { color: var(--muted); font-size: .75rem; font-weight: 750; text-transform: uppercase; }
-.kpi-card b { display: block; font-size: 1.55rem; margin-top: 4px; color: var(--green-dark); }
-
-/* MATRIX TABLE */
-.matrix-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
-.matrix-table { width: 100%; border-collapse: collapse; font-size: .84rem; min-width: 680px; }
-.matrix-table th, .matrix-table td {
-  padding: 10px 8px;
-  border-bottom: 1px solid var(--line);
-  text-align: center;
-}
-.matrix-table th { background: #f4f8f5; font-weight: 850; color: var(--muted); font-size: .75rem; text-transform: uppercase; }
-.matrix-table th.player-col, .matrix-table td.player-col {
-  text-align: left;
-  padding-left: 14px;
-  position: sticky;
-  left: 0;
-  background: #fff;
-  z-index: 2;
-  border-right: 1px solid var(--line);
-  min-width: 190px;
-}
-.matrix-table th.player-col { background: #f4f8f5; }
-.cell-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 28px;
-  border-radius: 8px;
-  font-weight: 850;
-  font-size: .75rem;
-}
-.cell-done { background: #d8f3e2; color: var(--ok); }
-.cell-part { background: #ffefd2; color: var(--warn); }
-.cell-none { background: #f1f4f2; color: #a1b0a6; }
-
-/* ROSTER MANAGER */
-.roster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
-.player-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9px 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  margin-bottom: 6px;
-  background: #fcfdfc;
-}
-.del-btn { background: #fee2e2; color: var(--danger); border: 0; border-radius: 8px; padding: 5px 9px; font-size: .76rem; font-weight: 800; }
-
-pre.code-block {
-  background: #102419;
-  color: #d8f3e2;
-  padding: 14px;
-  border-radius: 12px;
-  overflow-x: auto;
-  font-size: .78rem;
-  line-height: 1.4;
-}
-
-@media (max-width: 820px) {
-  .player-grid { grid-template-columns: 1fr; }
-  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-  .roster-grid { grid-template-columns: 1fr; }
+@media (max-width: 760px) {
+  .app { padding: 10px 10px 30px; }
+  .hero { padding: 20px; border-radius: 21px; }
+  .summary { gap: 7px; }
+  .stat { padding: 10px; }
+  .stat b { font-size: 1.15rem; }
+  .layout { grid-template-columns: 1fr; gap: 12px; }
+  .panel { position: static; padding: 14px; }
   .stage-list { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .stage-btn { margin: 0; }
+  .stage-btn { margin: 0; padding: 9px; gap: 8px; }
+  .stage-number { width: 32px; height: 32px; border-radius: 10px; }
+  .stage-text b { font-size: .79rem; }
+  .stage-text small { font-size: .7rem; }
+  .workout { border-radius: 20px; }
+  .timer-actions { width: 100%; }
+  .timer-actions .btn { flex: 1; }
 }
-@media (max-width: 480px) {
+@media (max-width: 400px) {
   .stage-list { grid-template-columns: 1fr; }
+  .stat small { font-size: .68rem; }
 }
 </style>
 </head>
 <body>
-
 <div class="app">
-  <!-- TOPBAR Z HERBEM OLIMPII GRUDZIĄDZ -->
-  <header class="topbar">
-    <div class="topbar-row">
-      <div class="brand">
+  <header class="hero">
+    <div class="brand">
+      <div class="brand-left">
         <!-- Wektorowy Herb GKS Olimpia Grudziądz -->
         <svg class="crest" viewBox="0 0 200 245" xmlns="http://www.w3.org/2000/svg" aria-label="GKS Olimpia Grudziądz">
           <path d="M6 6 H194 V145 C194 202 100 239 100 239 C100 239 6 202 6 145 Z" fill="#ffffff" stroke="#c8a45d" stroke-width="8"/>
@@ -491,278 +356,114 @@ pre.code-block {
           </g>
           <path d="M6 6 H194 V145 C194 202 100 239 100 239 C100 239 6 202 6 145 Z" fill="none" stroke="#c8a45d" stroke-width="8"/>
         </svg>
-        <div class="brand-text">
-          <small>GKS „Olimpia” Grudziądz • Akademia</small>
-          <h1>PREP PRO • 18 MIN</h1>
+        <div>
+          <span class="club-sub">GKS „Olimpia” Grudziądz</span>
+          <div class="logo">PREP PRO</div>
         </div>
       </div>
-
-      <div class="user-Controls">
-        <div class="user-badge" id="activeUserBadge">
-          <span>Profil: <b id="badgeName">Wybierz</b> (<span id="badgeTeam">-</span>)</span>
-        </div>
-        <button class="btn-top" id="changeProfileBtn">⇄ Zmień profil</button>
-      </div>
+      <div class="pill">PLAN JEDNOSTKI • 18 MIN</div>
     </div>
 
-    <nav class="nav-tabs">
-      <button class="tab-btn active" data-view="player">🏋️ Trening Zawodnika (PREP)</button>
-      <button class="tab-btn" data-view="poster">📋 Cały Plan (Plakat 5 etapów)</button>
-      <button class="tab-btn" data-view="coach">📅 Kalendarz Drużyny (Trener)</button>
-      <button class="tab-btn" data-view="sync">🔗 Synchronizacja & Kadra</button>
-    </nav>
+    <h1>Przygotuj się.<br><span>Wejdź na boisko.</span></h1>
+    <p>Interaktywny plan przygotowania motorycznego przed treningiem. Wykonuj ćwiczenia po kolei, zaznaczaj postępy i korzystaj z timera.</p>
+
+    <div class="summary">
+      <div class="stat"><b>18 min</b><small>cały plan</small></div>
+      <div class="stat"><b>5 etapów</b><small>od mobilności do sprintu</small></div>
+      <div class="stat"><b id="heroDone">0/20</b><small>wykonanych ćwiczeń</small></div>
+    </div>
   </header>
 
-  <!-- PASEK DATY I STATUSU DLA ZAWODNIKA -->
-  <div class="date-bar" id="playerDateBar">
-    <div class="date-bar-left">
-      <b>📅 Data treningu:</b>
-      <input type="date" id="workoutDateInput">
-      <span class="status-pill empty" id="dayStatusPill">0/20 wykonanych</span>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn gold" id="saveReportBtn" style="padding:8px 14px;font-size:.82rem">✓ Zapisz i wyślij raport dnia</button>
-    </div>
+  <div class="layout">
+    <aside class="panel">
+      <p class="section-label">Etapy przygotowania</p>
+      <div class="stage-list" id="stageList"></div>
+      <div class="overall">
+        <div style="display:flex;justify-content:space-between;gap:8px">
+          <b>Postęp całego planu</b>
+          <b id="progressText">0%</b>
+        </div>
+        <div class="progress-line"><span id="progressBar"></span></div>
+        <small id="progressSub">Zacznij od pierwszego ćwiczenia.</small>
+      </div>
+      <button class="btn secondary" style="width:100%;margin-top:14px" id="resetBtn">↻ Wyzeruj postęp</button>
+    </aside>
+
+    <main>
+      <section class="workout" id="exerciseCard" aria-live="polite">
+        <div class="topline">
+          <span class="eyebrow" id="stageEyebrow">ETAP 1 Z 5</span>
+          <span class="tag" id="stageTag">3 MIN • LEKKA INTENSYWNOŚĆ</span>
+        </div>
+        <h2 id="exerciseName">Ładowanie planu…</h2>
+        <div class="dose" id="exerciseDose"></div>
+
+        <div class="goal-box" id="goalBox">
+          <b>CEL ETAPU:</b> <span id="stageGoal"></span>
+        </div>
+
+        <div class="instruction">
+          <h3>JAK WYKONAĆ</h3>
+          <p id="exerciseHow"></p>
+        </div>
+
+        <div class="equipment"><b>Sprzęt:</b> <span id="exerciseEquipment"></span></div>
+
+        <label class="complete">
+          <input type="checkbox" id="doneCheck">
+          <span>Oznacz ćwiczenie jako wykonane</span>
+        </label>
+
+        <div class="actions">
+          <button class="btn secondary" id="prevBtn">← Wstecz</button>
+          <button class="btn primary" id="nextBtn">Następne ćwiczenie →</button>
+        </div>
+
+        <div class="timerbox">
+          <div>
+            <small>TIMER DO ĆWICZENIA</small>
+            <div class="time" id="timerDisplay">00:30</div>
+          </div>
+          <div class="timer-actions">
+            <button class="btn primary" id="timerStart">▶ Start</button>
+            <button class="btn secondary" id="timerPlus">+15s</button>
+            <button class="btn secondary" id="timerReset">↻ Reset</button>
+          </div>
+        </div>
+        <p class="notice">Timer jest pomocniczy — czas dopasuj do zaleceń trenera i własnego tempa pracy.</p>
+      </section>
+
+      <div class="finish" id="finishBox">
+        <h3>🏁 Plan zakończony!</h3>
+        <p id="finishText">Dobra robota. Jesteś gotowy do wyjścia na boisko.</p>
+        <button class="btn primary" id="restartBtn">Rozpocznij od początku</button>
+      </div>
+
+      <details class="workout list">
+        <summary>☷ Lista wszystkich ćwiczeń (5 etapów)</summary>
+        <div id="allExercises"></div>
+      </details>
+    </main>
   </div>
 
-  <!-- WIDOK 1: TRENING ZAWODNIKA -->
-  <section id="view-player" class="view-section">
-    <div class="player-grid">
-      <aside class="card">
-        <p class="section-label">5 Etapów Jednostki (18 min)</p>
-        <div class="stage-list" id="stageList"></div>
-
-        <div class="progress-box">
-          <div style="display:flex;justify-content:space-between;font-size:.88rem">
-            <b>Postęp w tym dniu</b>
-            <b id="progressPct">0%</b>
-          </div>
-          <div class="progress-bar"><span id="progressFill"></span></div>
-          <small id="progressSub" style="color:var(--muted)">Odhaczaj ćwiczenia w trakcie wykonywania.</small>
-        </div>
-
-        <button class="btn secondary" id="markAllStageBtn" style="width:100%;margin-top:12px;font-size:.82rem">✓ Oznacz cały bieżący etap</button>
-      </aside>
-
-      <main>
-        <div class="card">
-          <div class="ex-header">
-            <span class="eyebrow" id="exEyebrow">ETAP 1 Z 5 • ĆWICZENIE 1/20</span>
-            <span class="tag" id="exTag">3 MIN • LEKKA INTENSYWNOŚĆ</span>
-          </div>
-          <h2 class="ex-title" id="exName">Marsz z pracą ramion lub trucht w miejscu</h2>
-          <div class="ex-dose" id="exDose">30 sekund</div>
-
-          <div class="goal-banner" id="exGoalBox">
-            <b>CEL ETAPU:</b> <span id="exGoal">Podniesienie temperatury ciała i mobilizacja kluczowych stawów.</span>
-          </div>
-
-          <div class="how-box">
-            <h3>Instrukcja wykonania</h3>
-            <p id="exHow"></p>
-          </div>
-
-          <div class="equip-line"><b>Sprzęt:</b> <span id="exEquip"></span></div>
-
-          <label class="check-big" id="checkBigLabel">
-            <input type="checkbox" id="exDoneCheck">
-            <span id="checkBigText">Oznacz ćwiczenie jako wykonane</span>
-          </label>
-
-          <div class="nav-actions">
-            <button class="btn secondary" id="prevExBtn">← Poprzednie</button>
-            <button class="btn primary" id="nextExBtn">Następne ćwiczenie →</button>
-          </div>
-
-          <div class="timer-strip">
-            <div>
-              <small style="color:var(--muted);font-weight:750;font-size:.72rem;display:block">STOPER POMOCNICZY</small>
-              <div class="timer-val" id="timerDisplay">00:30</div>
-            </div>
-            <div class="timer-btns">
-              <button class="btn primary" id="timerStartBtn">▶ Start</button>
-              <button class="btn secondary" id="timerPlusBtn">+15s</button>
-              <button class="btn secondary" id="timerResetBtn">↻ Reset</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- SZYBKA LISTA ĆWICZEŃ W TYM ETAPIE -->
-        <div class="card stage-checklist">
-          <p class="section-label" id="stageChecklistTitle">Ćwiczenia w tym etapie</p>
-          <div id="stageExercisesList"></div>
-        </div>
-      </main>
-    </div>
-  </section>
-
-  <!-- WIDOK 2: PLAKAT (WSZYSTKIE 5 ETAPÓW NA JEDNYM EKRANIE) -->
-  <section id="view-poster" class="view-section" style="display:none;margin-top:14px">
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
-        <div>
-          <h2 style="margin:0">Plan Jednostki — 18 Minut (Widok Tablicy)</h2>
-          <small style="color:var(--muted)">Kliknij dowolne ćwiczenie, aby odhaczyć jego wykonanie w wybranym dniu.</small>
-        </div>
-        <button class="btn gold" id="markAllDayBtn">✓ Oznacz wszystkie (20/20)</button>
-      </div>
-      <div id="posterContainer"></div>
-    </div>
-  </section>
-
-  <!-- WIDOK 3: KALENDARZ DRUŻYNY (PANEL TRENERA) -->
-  <section id="view-coach" class="view-section" style="display:none;margin-top:14px">
-    <div class="card">
-      <div class="coach-controls">
-        <div>
-          <p class="section-label" style="margin-bottom:4px">Monitoring Sztabu • GKS Olimpia Grudziądz</p>
-          <h2 style="margin:0">Kalendarz Wykonania PREP-u przez Drużynę</h2>
-        </div>
-        <div class="filter-group">
-          <label style="font-size:.8rem;font-weight:800">Drużyna:</label>
-          <select id="coachTeamSelect"></select>
-          <label style="font-size:.8rem;font-weight:800">Okres:</label>
-          <select id="coachRangeSelect">
-            <option value="7">Ostatnie 7 dni</option>
-            <option value="14" selected>Ostatnie 14 dni</option>
-            <option value="30">Ostatnie 30 dni</option>
-          </select>
-          <button class="btn secondary" id="refreshCloudBtn" style="padding:8px 12px;font-size:.8rem">↻ Odśwież dane</button>
-        </div>
-      </div>
-
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <small>Zawodnicy w kadrze</small>
-          <b id="kpiPlayers">0</b>
-        </div>
-        <div class="kpi-card">
-          <small>Wykonali dzisiaj (100%)</small>
-          <b id="kpiTodayDone" style="color:var(--ok)">0/0</b>
-        </div>
-        <div class="kpi-card">
-          <small>Frekwencja drużyny (okres)</small>
-          <b id="kpiPeriodRate">0%</b>
-        </div>
-        <div class="kpi-card">
-          <small>Tryb bazy danych</small>
-          <b id="kpiSyncMode" style="font-size:1.05rem;margin-top:9px">Lokalny / Demo</b>
-        </div>
-      </div>
-
-      <div class="matrix-wrap">
-        <table class="matrix-table" id="calendarMatrixTable"></table>
-      </div>
-
-      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:.78rem;color:var(--muted)">
-        <span><span class="cell-badge cell-done" style="width:22px;height:20px">✓</span> Wykonany (20/20)</span>
-        <span><span class="cell-badge cell-part" style="width:28px;height:20px">12</span> Częściowo (liczba ćwiczeń)</span>
-        <span><span class="cell-badge cell-none" style="width:22px;height:20px">–</span> Brak wpisu</span>
-        <span>💡 <b>Wskazówka dla trenera:</b> Kliknij komórkę w tabeli, aby zmienić status zawodnika ręcznie.</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- WIDOK 4: KADRA I SYNCHRONIZACJA GOOGLE SHEETS -->
-  <section id="view-sync" class="view-section" style="display:none;margin-top:14px">
-    <div class="roster-grid">
-      <!-- ZARZĄDZANIE KADRĄ -->
-      <div class="card">
-        <p class="section-label">Zarządzanie Drużynami i Zawodnikami</p>
-        <h3 style="margin:0 0 12px">Dodaj zawodnika do drużyny</h3>
-        <div class="field">
-          <label>Drużyna</label>
-          <select id="manageTeamSelect"></select>
-        </div>
-        <div style="display:flex;gap:8px;margin-bottom:16px">
-          <input type="text" id="newPlayerName" placeholder="Imię i nazwisko (np. Jan Kowalski)" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--line)">
-          <button class="btn primary" id="addPlayerBtn">+ Dodaj</button>
-        </div>
-
-        <div style="display:flex;gap:8px;margin-bottom:16px">
-          <input type="text" id="newTeamName" placeholder="Nowa drużyna (np. U-15 C1)" style="flex:1;padding:10px;border-radius:10px;border:1px solid var(--line)">
-          <button class="btn secondary" id="addTeamBtn">+ Nowa drużyna</button>
-        </div>
-
-        <p class="section-label">Lista zawodników w wybranej drużynie</p>
-        <div id="rosterListContainer"></div>
-      </div>
-
-      <!-- SYNCHRONIZACJA CHMUROWA GOOGLE SHEETS -->
-      <div class="card">
-        <p class="section-label">Wspólna baza danych dla telefonów</p>
-        <h3 style="margin:0 0 8px">Połącz z Google Sheets (5 minut)</h3>
-        <p style="font-size:.85rem;color:var(--muted);margin-top:0">
-          Aby raporty z telefonów zawodników spływały na żywo do Twojego kalendarza, wklej adres URL skryptu Google Apps Script poniżej:
-        </p>
-        <div class="field">
-          <label>Adres URL Web App (Google Apps Script)</label>
-          <input type="url" id="gasUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
-        </div>
-        <div style="display:flex;gap:8px;margin-bottom:18px">
-          <button class="btn primary" id="saveGasUrlBtn">Zapisz adres chmury</button>
-          <button class="btn secondary" id="seedDemoBtn">Wgraj dane testowe</button>
-        </div>
-
-        <p class="section-label">Kod do wklejenia w Arkuszu Google (Rozszerzenia → Apps Script)</p>
-        <pre class="code-block">function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var d = JSON.parse(e.postData.contents);
-  sheet.appendRow([new Date(), d.date, d.team, d.player, d.count, JSON.stringify(d.done)]);
-  return ContentService.createTextOutput(JSON.stringify({ok:true}))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-function doGet() {
-  var rows = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getDataRange().getValues();
-  return ContentService.createTextOutput(JSON.stringify(rows))
-    .setMimeType(ContentService.MimeType.JSON);
-}</pre>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- MODAL WYBORU PROFILU (LOGOWANIE BEZ HASŁA) -->
-<div class="modal-backdrop" id="profileModal">
-  <div class="modal">
-    <h2>Wybierz swój profil</h2>
-    <p>GKS „Olimpia” Grudziądz — system monitoringu PREP przed treningiem.</p>
-
-    <div class="role-switch">
-      <button class="role-btn active" id="rolePlayerBtn" type="button">🏃 Jestem Zawodnikiem</button>
-      <button class="role-btn" id="roleCoachBtn" type="button">📋 Jestem Trenerem</button>
-    </div>
-
-    <div class="field">
-      <label>Wybierz drużynę</label>
-      <select id="modalTeamSelect"></select>
-    </div>
-
-    <div class="field" id="modalPlayerField">
-      <label>Wybierz swoje imię i nazwisko</label>
-      <select id="modalPlayerSelect"></select>
-    </div>
-
-    <button class="btn primary" id="confirmProfileBtn" style="width:100%;margin-top:8px">Wejdź do aplikacji →</button>
-  </div>
+  <footer class="footer">GKS „Olimpia” Grudziądz · PREP PRO · Działaj technicznie, nie za wszelką cenę.</footer>
 </div>
 
 <script>
-// 1. DANE PLANU Z PLAKATU (5 ETAPÓW, 20 ĆWICZEŃ)
-const STAGES = [
+const stages = [
   {
     id: 1,
     title: "Mobilność i podniesienie temperatury",
     time: "3 min",
     tag: "Lekka intensywność",
     equipment: "Bez sprzętu / ściana",
-    goal: "Podniesienie temperatury ciała oraz mobilizacja stawu skokowego, bioder i odcinka piersiowego.",
+    goal: "Podniesienie temperatury ciała i mobilizacja kluczowych stawów przed jednostką.",
     exercises: [
-      ["Marsz z pracą ramion lub trucht w miejscu", "30 s", "Maszeruj dynamicznie lub lekko truchtaj w miejscu. Aktywnie pracuj ramionami, trzymaj wyprostowaną sylwetkę i stopniowo podnoś tempo.", 30],
-      ["Mobilizacja stawu skokowego przy ścianie", "8 / strona", "Ustaw stopę kilka centymetrów od ściany. Prowadź kolano w linii stopy do ściany, nie odrywając pięty od podłoża.", 40],
-      ["Wykrok z rotacją tułowia", "4 / strona", "Zrób głęboki wykrok, ustabilizuj miednicę i wykonaj płynną rotację klatki piersiowej w stronę nogi wykrocznej.", 40],
-      ["Mobilizacja bioder 90/90", "5 / strona", "W siadzie ugnij oba kolana pod kątem 90°. Przekładaj kolana z jednej strony na drugą, utrzymując kontrolowany ruch w biodrach.", 40],
-      ["Wspięcia na palce", "12 powt.", "Wykonaj pełne wspięcie na palce, zatrzymaj na ułamek sekundy na górze i powoli opuść pięty.", 30]
+      ["Marsz z pracą ramion lub trucht w miejscu", "30 s", "Maszeruj dynamicznie lub lekko truchtaj. Pracuj ramionami, utrzymuj wyprostowaną sylwetkę i stopniowo zwiększaj tempo.", 30],
+      ["Mobilizacja stawu skokowego przy ścianie", "8 / strona", "Ustaw stopę kilka centymetrów od ściany. Prowadź kolano nad stopą w kierunku ściany, nie odrywając pięty.", 40],
+      ["Wykrok z rotacją tułowia", "4 / strona", "Wykonaj wykrok, ustabilizuj biodra i obróć klatkę piersiową w stronę nogi wykrocznej. Ruch wykonuj spokojnie.", 40],
+      ["Mobilizacja bioder 90/90", "5 / strona", "Usiądź z nogami ugiętymi pod kątem około 90 stopni. Przenoś kolana z jednej strony na drugą, utrzymując kontrolę ruchu.", 40],
+      ["Wspięcia na palce", "12 powt.", "Unieś pięty, napnij łydki i powoli wróć do podłoża. Nie kołysz tułowiem.", 30]
     ]
   },
   {
@@ -770,13 +471,13 @@ const STAGES = [
     title: "Aktywacja pośladków i stabilizacji",
     time: "4 min",
     tag: "Gumy oporowe",
-    equipment: "Guma oporowa Mini Band",
+    equipment: "Guma mini band",
     goal: "Aktywacja pośladków i kontrola miednicy bez nadmiernego zmęczenia.",
     exercises: [
-      ["Chód bokiem z gumą nad kolanami", "8 kroków / strona", "Załóż gumę nad kolanami, zejdź do ćwierćprzysiadu i wykonuj kontrolowane kroki odstawno-dostawne, nie łącząc stóp.", 40],
-      ["Most biodrowy", "10 powt.", "Leżąc na plecach, unieś biodra poprzez mocne dopięcie pośladków. Nie przeprostowuj odcinka lędźwiowego.", 40],
-      ["Odwodzenie biodra z gumą", "8 / strona", "W leżeniu bokiem lub staniu odwódź nogę przeciw oporowi gumy. Pilnuj, aby miednica nie uciekała w tył.", 40],
-      ["Marsz w podporze lub dead bug", "6 / strona", "Naprzemiennie pracuj kończynami przy pełnej stabilizacji brzucha i bez rotacji miednicy.", 45]
+      ["Chód bokiem z gumą nad kolanami", "8 kroków / strona", "Ustaw stopy na szerokość bioder, lekko ugnij kolana i wykonuj kontrolowane kroki w bok. Utrzymuj stałe napięcie gumy.", 40],
+      ["Most biodrowy", "10 powt.", "Połóż się na plecach, ugnij kolana i oprzyj stopy o podłoże. Unieś biodra przez napięcie pośladków, nie przeprostowując odcinka lędźwiowego.", 40],
+      ["Odwodzenie biodra z gumą", "8 / strona", "Utrzymując stabilną miednicę, odwiedź nogę na bok przeciw oporowi gumy. Nie przechylaj tułowia.", 40],
+      ["Marsz w podporze lub dead bug", "6 / strona", "W wersji dead bug leż na plecach z uniesionymi rękami i nogami. Naprzemiennie opuszczaj przeciwną rękę i nogę, utrzymując stabilny tułów. W podporze unoś kończyny bez rotowania bioder.", 45]
     ]
   },
   {
@@ -784,13 +485,13 @@ const STAGES = [
     title: "Przygotowanie siłowe i kontrola jednonóż",
     time: "4 min",
     tag: "Masa ciała / lekkie hantle",
-    equipment: "Masa ciała lub lekkie hantle / podwyższenie",
+    equipment: "Masa ciała; opcjonalnie lekkie hantle",
     goal: "Kontrola kolana, biodra i tułowia oraz przygotowanie łańcucha tylnego.",
     exercises: [
-      ["Przysiad z masą ciała", "8 powt.", "Zejdź kontrolowanie w dół, prowadząc kolana w osi stóp. Utrzymuj całe stopy dociśnięte do podłoża.", 40],
-      ["RDL na jednej nodze bez obciążenia", "5 / strona", "Na lekko ugiętym kolanie nogi podporowej wykonaj zawias w biodrze (hip hinge), utrzymując równe biodra.", 45],
-      ["Wspięcie na palce z ugiętym kolanem", "8 / strona", "Ugnij lekko kolano (aktywacja m. płaszczkowatego) i wykonaj wspięcie na palce z pełną kontrolą równowagi.", 40],
-      ["Pompka łopatkowa", "8 powt.", "W podporze przodem przy prostych łokciach zbliż łopatki do siebie, a następnie mocno wypchnij klatkę w górę.", 35]
+      ["Przysiad z masą ciała", "8 powt.", "Ustaw stopy stabilnie, cofaj biodra i uginaj kolana. Utrzymuj całe stopy na podłożu i kolana w osi stóp.", 40],
+      ["RDL na jednej nodze bez obciążenia", "5 / strona", "Stań na jednej nodze, lekko ugnij kolano i cofaj biodro, pochylając tułów. Drugą nogę prowadź do tyłu. Utrzymuj miednicę stabilnie.", 45],
+      ["Wspięcie na palce z ugiętym kolanem", "8 / strona", "Lekko ugnij kolano nogi podporowej i unieś piętę. Kontroluj równowagę oraz powrót do pozycji początkowej.", 40],
+      ["Pompka łopatkowa", "8 powt.", "Przyjmij pozycję podporu na dłoniach. Bez uginania łokci pozwól klatce piersiowej delikatnie opaść między łopatki, a następnie odepchnij podłoże.", 40]
     ]
   },
   {
@@ -798,13 +499,13 @@ const STAGES = [
     title: "Sprężystość, lądowanie i hamowanie",
     time: "3 min",
     tag: "Jakość ruchu",
-    equipment: "Bez sprzętu",
+    equipment: "Wolna, stabilna powierzchnia",
     goal: "Przygotowanie do kontaktu z podłożem, stabilnego lądowania i hamowania.",
     exercises: [
-      ["Szybkie wspięcia na palce", "10 powt.", "Wykonuj dynamiczne, sprężyste wspięcia przy krótkim kontakcie z podłożem.", 25],
-      ["Snap-down: szybkie zejście do pozycji atletycznej i zatrzymanie", "4 powt.", "Z pozycji wysokiej na palcach błyskawicznie zejdź do pozycji atletycznej i zamroź ruch na 2 sekundy.", 35],
-      ["Podskoki obunóż o małej amplitudzie", "2 × 8", "Niskie, rytmiczne podskoki (pogo jumps) ze sztywnym stawem skokowym i cichym lądowaniem.", 35],
-      ["Lądowanie na jednej nodze z utrzymaniem równowagi", "3 / strona", "Wyskocz lekko i wyląduj miękko na jednej nodze. Ustabilizuj oś kolano–biodro przez 2–3 sekundy.", 45]
+      ["Szybkie wspięcia na palce", "10 powt.", "Wykonuj dynamiczne, sprężyste wspięcia na palce, zachowując kontrolę i stabilność stawów skokowych.", 30],
+      ["Snap-down: szybkie zejście do pozycji atletycznej i zatrzymanie", "4 powt.", "Stań wyprostowany, szybko zejdź do pozycji atletycznej z ugiętymi biodrami i kolanami, a następnie zatrzymaj ruch. Utrzymaj stabilne kolana.", 35],
+      ["Podskoki obunóż o małej amplitudzie", "2 × 8", "Wykonuj niskie, rytmiczne podskoki na obu stopach. Ląduj cicho, sprężyście i z kontrolą ustawienia kolan.", 40],
+      ["Lądowanie na jednej nodze z utrzymaniem równowagi", "3 / strona", "Wykonaj niewielki podskok lub krok z lądowaniem na jednej nodze. Zamortyzuj ruch i utrzymaj stabilną pozycję przez 2–3 sekundy.", 45]
     ]
   },
   {
@@ -812,20 +513,20 @@ const STAGES = [
     title: "Aktywacja szybkościowa",
     time: "4 min",
     tag: "Przejście na boisko",
-    equipment: "Pachołki (odcinek 5–10 m)",
-    goal: "Pobudzenie układu nerwowego do szybkich startów, przyspieszeń i bezpiecznego wyhamowania.",
+    equipment: "Odcinek 5–10 m i pachołki",
+    goal: "Pobudzenie układu nerwowego przed wyjściem na boisko — szybkość reakcji, przyspieszenie i bezpieczne wyhamowanie.",
     exercises: [
-      ["Szybkie stopy w miejscu", "2 × 5 s", "Maksymalna częstotliwość kroków w miejscu w niskiej pozycji atletycznej na sygnał.", 20],
-      ["Starty z pozycji atletycznej", "3 × 5–10 m", "Dynamiczne wyjście z pochylenia na pierwsze 5–10 metrów. Pełny odpoczynek w marszu powrotnym.", 40],
-      ["Dwa kontrolowane hamowania po krótkim przyspieszeniu", "2 powt.", "Po krótkim starcie wyhamuj w 3–4 drobnych krokach, obniżając środek ciężkości bez blokowania kolan.", 40]
+      ["Szybkie stopy w miejscu", "2 × 5 s", "Wykonuj bardzo szybkie, krótkie kroki w miejscu. Utrzymuj lekko ugięte kolana, aktywne ramiona i stabilny tułów.", 20],
+      ["Starty z pozycji atletycznej", "3 × 5–10 m", "Przyjmij pozycję atletyczną, pochyl lekko tułów i przyspieszaj dynamicznie przez wyznaczony odcinek. Odpocznij podczas powrotu.", 35],
+      ["Dwa kontrolowane hamowania po krótkim przyspieszeniu", "2 hamowania", "Przyspiesz na krótkim odcinku, a następnie stopniowo wytracaj prędkość krótkimi krokami. Utrzymuj stabilne biodra i kolana.", 40]
     ]
   }
 ];
 
-const ALL_EXERCISES = STAGES.flatMap(s =>
+const exercises = stages.flatMap(s =>
   s.exercises.map(e => ({
-    stageId: s.id,
-    stageTitle: s.title,
+    stage: s.id,
+    title: s.title,
     stageTime: s.time,
     tag: s.tag,
     equipment: s.equipment,
@@ -837,393 +538,9 @@ const ALL_EXERCISES = STAGES.flatMap(s =>
   }))
 );
 
-// 2. DOMYŚLNA KADRA DRUŻYN OLIMPII GRUDZIĄDZ
-const DEFAULT_ROSTER = {
-  "U-17 (B1)": [
-    "Kacper Wiśniewski", "Szymon Kamiński", "Mateusz Lewandowski", "Jakub Zieliński",
-    "Michał Szymański", "Filip Woźniak", "Bartosz Dąbrowski", "Igor Kozłowski",
-    "Mikołaj Jankowski", "Dawid Mazur", "Oliwier Kwiatkowski", "Tymon Krawczyk"
-  ],
-  "U-16 (B2)": [
-    "Adam Piotrowski", "Marcel Grabowski", "Nikodem Nowakowski", "Antoni Pawłowski",
-    "Jan Michalski", "Ksawery Król", "Stanisław Wieczorek", "Borys Jabłoński"
-  ],
-  "II Liga / Rezerwy": [
-    "Patryk Zając", "Kamil Królak", "Damian Wróbel", "Adrian Stępień"
-  ]
-};
-
-// 3. STAN APLIKACJI I PAMIĘĆ
-const STORAGE_KEYS = {
-  roster: "olimpia_prep_roster_v1",
-  logs: "olimpia_prep_logs_v1",
-  profile: "olimpia_prep_profile_v1",
-  gasUrl: "olimpia_prep_gas_url_v1"
-};
-
-let roster = loadJSON(STORAGE_KEYS.roster, DEFAULT_ROSTER);
-let logs = loadJSON(STORAGE_KEYS.logs, {});
-let currentProfile = loadJSON(STORAGE_KEYS.profile, {
-  role: "player",
-  team: "U-17 (B1)",
-  player: DEFAULT_ROSTER["U-17 (B1)"][0]
-});
-let gasUrl = localStorage.getItem(STORAGE_KEYS.gasUrl) || "";
-
-let currentDate = todayISO();
-let activeExIndex = 0;
-let timerInterval = null;
-let timerRemaining = 30;
-
-function todayISO() {
-  const d = new Date();
-  const off = d.getTimezoneOffset();
-  return new Date(d.getTime() - off * 60000).toISOString().slice(0, 10);
-}
-function loadJSON(key, fallback) {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch (e) { return fallback; }
-}
-function saveJSON(key, val) {
-  try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
-}
-function logKey(date, team, player) {
-  return `${date}__${team}__${player}`;
-}
-function getDoneSet(date, team, player) {
-  const arr = logs[logKey(date, team, player)] || [];
-  return new Set(arr);
-}
-function setDoneSet(date, team, player, setObj) {
-  logs[logKey(date, team, player)] = [...setObj];
-  saveJSON(STORAGE_KEYS.logs, logs);
-}
-
-// Wgranie realistycznych danych demonstracyjnych przy pierwszym uruchomieniu, aby Kalendarz Trenera był od razu wypełniony
-function ensureInitialDemoLogs() {
-  if (Object.keys(logs).length > 0) return;
-  const days = getLastNDates(10);
-  Object.entries(roster).forEach(([team, players]) => {
-    players.forEach((p, idx) => {
-      days.forEach((d, dIdx) => {
-        // Wzorzec: większość dni treningowych wykonana w 100%, pojedyncze częściowo lub puste
-        const hash = (idx * 7 + dIdx * 3) % 10;
-        if (dIdx === 0 && idx % 3 === 0) return; // Dzisiaj część jeszcze przed treningiem
-        if (hash < 6) {
-          logs[logKey(d, team, p)] = Array.from({length: 20}, (_, i) => i);
-        } else if (hash === 6) {
-          logs[logKey(d, team, p)] = [0,1,2,3,4,5,6,7,8,9,10,11];
-        }
-      });
-    });
-  });
-  saveJSON(STORAGE_KEYS.logs, logs);
-}
-
-function getLastNDates(n) {
-  const out = [];
-  const base = new Date();
-  for (let i = 0; i < n; i++) {
-    const d = new Date(base);
-    d.setDate(base.getDate() - i);
-    const off = d.getTimezoneOffset();
-    out.push(new Date(d.getTime() - off * 60000).toISOString().slice(0, 10));
-  }
-  return out;
-}
-
+let active = 0, done = new Set(), remaining = 30, interval = null;
 const $ = id => document.getElementById(id);
 
-// 4. RENDEROWANIE WIDOKU ZAWODNIKA
-function renderHeaderAndBar() {
-  $('badgeName').textContent = currentProfile.role === 'coach' ? 'TRENER' : currentProfile.player;
-  $('badgeTeam').textContent = currentProfile.team;
-  $('workoutDateInput').value = currentDate;
-
-  const done = getDoneSet(currentDate, currentProfile.team, currentProfile.player);
-  const pill = $('dayStatusPill');
-  pill.textContent = `${done.size}/${ALL_EXERCISES.length} wykonanych (${Math.round(done.size/ALL_EXERCISES.length*100)}%)`;
-  pill.className = 'status-pill ' + (done.size === ALL_EXERCISES.length ? 'done' : done.size > 0 ? 'partial' : 'empty');
-}
-
-function renderPlayerWorkout() {
-  renderHeaderAndBar();
-  const done = getDoneSet(currentDate, currentProfile.team, currentProfile.player);
-  const ex = ALL_EXERCISES[activeExIndex];
-
-  // Sidebar etapów
-  $('stageList').innerHTML = STAGES.map(s => {
-    const idxs = ALL_EXERCISES.map((item, i) => item.stageId === s.id ? i : -1).filter(i => i >= 0);
-    const doneInStage = idxs.filter(i => done.has(i)).length;
-    const isComplete = doneInStage === idxs.length;
-    const isActive = ex.stageId === s.id;
-    return `
-      <button class="stage-btn ${isActive ? 'active' : ''} ${isComplete ? 'done' : ''}" data-stage="${s.id}">
-        <span class="stage-num">${isComplete ? '✓' : s.id}</span>
-        <span class="stage-info">
-          <b>${s.title}</b>
-          <small>${s.time} • ${doneInStage}/${idxs.length} ćw.</small>
-        </span>
-      </button>
-    `;
-  }).join('');
-
-  document.querySelectorAll('[data-stage]').forEach(btn => {
-    btn.onclick = () => {
-      const stId = Number(btn.dataset.stage);
-      activeExIndex = ALL_EXERCISES.findIndex(x => x.stageId === stId);
-      renderPlayerWorkout();
-    };
-  });
-
-  // Pasek postępu
-  const pct = Math.round((done.size / ALL_EXERCISES.length) * 100);
-  $('progressPct').textContent = `${pct}%`;
-  $('progressFill').style.width = `${pct}%`;
-  $('progressSub').textContent = pct === 100
-    ? "✅ Cały PREP na ten dzień wykonany!"
-    : `Wykonano ${done.size} z ${ALL_EXERCISES.length} ćwiczeń.`;
-
-  // Karta główna ćwiczenia
-  $('exEyebrow').textContent = `ETAP ${ex.stageId} Z 5 • ĆWICZENIE ${activeExIndex + 1}/${ALL_EXERCISES.length}`;
-  $('exTag').textContent = `${ex.stageTime} • ${ex.tag}`;
-  $('exName').textContent = ex.name;
-  $('exDose').textContent = `Dawka: ${ex.dose}`;
-  $('exGoal').textContent = ex.goal;
-  $('exHow').textContent = ex.how;
-  $('exEquip').textContent = ex.equipment;
-
-  const isChecked = done.has(activeExIndex);
-  $('exDoneCheck').checked = isChecked;
-  $('checkBigLabel').classList.toggle('checked', isChecked);$('checkBigText').textContent = isChecked ? "✓ Ćwiczenie wykonane!" : "Oznacz ćwiczenie jako wykonane";
-
-  $('prevExBtn').disabled = activeExIndex === 0;
-  $('nextExBtn').textContent = activeExIndex === ALL_EXERCISES.length - 1 ? "Zakończ i zapisz →" : "Następne ćwiczenie →";
-
-  // Lista ćwiczeń w aktywnym etapie
-  $('stageChecklistTitle').textContent = `Etap ${ex.stageId}: ${ex.stageTitle} — lista ćwiczeń`;
-  const stageItems = ALL_EXERCISES.map((item, idx) => ({item, idx})).filter(x => x.item.stageId === ex.stageId);
-  $('stageExercisesList').innerHTML = stageItems.map(({item, idx}) => `
-    <div class="check-row ${idx === activeExIndex ? 'active-ex' : ''}" data-jump="${idx}">
-      <div class="check-row-left">
-        <input type="checkbox" data-check-idx="${idx}" ${done.has(idx) ? 'checked' : ''}>
-        <div>
-          <b>${item.name}</b>
-          <small>${item.dose}</small>
-        </div>
-      </div>
-      <span style="font-size:.76rem;color:var(--muted);font-weight:750">${idx === activeExIndex ? 'Teraz' : 'Pokaż'}</span>
-    </div>
-  `).join('');
-
-  document.querySelectorAll('[data-check-idx]').forEach(chk => {
-    chk.onclick = e => e.stopPropagation();
-    chk.onchange = e => {
-      const idx = Number(chk.dataset.checkIdx);
-      toggleExerciseDone(idx, chk.checked);
-    };
-  });
-
-  document.querySelectorAll('[data-jump]').forEach(row => {
-    row.onclick = () => {
-      activeExIndex = Number(row.dataset.jump);
-      renderPlayerWorkout();
-    };
-  });
-
-  resetTimer(ex.seconds);
-}
-
-function toggleExerciseDone(idx, state) {
-  const done = getDoneSet(currentDate, currentProfile.team, currentProfile.player);
-  if (state) done.add(idx); else done.delete(idx);
-  setDoneSet(currentDate, currentProfile.team, currentProfile.player, done);
-  renderPlayerWorkout();
-  renderPosterView();
-}
-
-// 5. WIDOK PLAKATU (5 ETAPÓW)
-function renderPosterView() {
-  const done = getDoneSet(currentDate, currentProfile.team, currentProfile.player);
-  $('posterContainer').innerHTML = STAGES.map(s => {
-    const items = ALL_EXERCISES.map((item, idx) => ({item, idx})).filter(x => x.item.stageId === s.id);
-    return `
-      <div style="border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:#fafcfa">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-          <b style="font-size:1.02rem;color:var(--green-dark)">${s.id}. ${s.title.toUpperCase()}</b>
-          <span class="tag">${s.time} • ${s.tag}</span>
-        </div>
-        <div class="goal-banner" style="margin-bottom:10px"><b>CEL:</b> ${s.goal}</div>
-        ${items.map(({item, idx}) => `
-          <label class="check-row" style="margin-bottom:6px">
-            <div class="check-row-left">
-              <input type="checkbox" data-poster-idx="${idx}" ${done.has(idx) ? 'checked' : ''}>
-              <div>
-                <b>${item.name} — <span style="color:var(--green-mid)">${item.dose}</span></b>
-                <small>${item.how}</small>
-              </div>
-            </div>
-          </label>
-        `).join('')}
-      </div>
-    `;
-  }).join('');
-
-  document.querySelectorAll('[data-poster-idx]').forEach(chk => {
-    chk.onchange = () => toggleExerciseDone(Number(chk.dataset.posterIdx), chk.checked);
-  });
-}
-
-// 6. WIDOK TRENERA — KALENDARZ DRUŻYNY (MACIERZ)
-function renderCoachCalendar() {
-  const teams = Object.keys(roster);
-  const teamSelect = $('coachTeamSelect');
-  if (!teamSelect.value || !roster[teamSelect.value]) {
-    teamSelect.innerHTML = teams.map(t => `<option value="${t}">${t}</option>`).join('');
-    teamSelect.value = currentProfile.team;
-  } else {
-    const cur = teamSelect.value;
-    teamSelect.innerHTML = teams.map(t => `<option value="${t}">${t}</option>`).join('');
-    teamSelect.value = cur;
-  }
-
-  const selectedTeam = teamSelect.value;
-  const players = roster[selectedTeam] || [];
-  const daysCount = Number($('coachRangeSelect').value || 14);
-  const dates = getLastNDates(daysCount);
-  const today = todayISO();
-
-  // KPI
-  $('kpiPlayers').textContent = players.length;
-  let todayComplete = 0;
-  players.forEach(p => {
-    if (getDoneSet(today, selectedTeam, p).size === ALL_EXERCISES.length) todayComplete++;
-  });
-  $('kpiTodayDone').textContent = `${todayComplete}/${players.length}`;
-
-  let totalCells = players.length * dates.length;
-  let completedCells = 0;
-  players.forEach(p => {
-    dates.forEach(d => {
-      if (getDoneSet(d, selectedTeam, p).size === ALL_EXERCISES.length) completedCells++;
-    });
-  });
-  const rate = totalCells > 0 ? Math.round((completedCells / totalCells) * 100) : 0;
-  $('kpiPeriodRate').textContent = `${rate}%`;
-  $('kpiSyncMode').textContent = gasUrl ? "Chmura (Sheets)" : "Lokalny / Demo";
-
-  // Budowa tabeli macierzy
-  const headCells = dates.map(d => {
-    const dt = new Date(d + "T12:00:00");
-    const dayName = dt.toLocaleDateString('pl-PL', { weekday: 'short' });
-    const dayNum = d.slice(8, 10) + '.' + d.slice(5, 7);
-    return `<th title="${d}">${dayName}<br>${dayNum}</th>`;
-  }).join('');
-
-  const bodyRows = players.map(p => {
-    let playerDoneDays = 0;
-    const cells = dates.map(d => {
-      const cnt = getDoneSet(d, selectedTeam, p).size;
-      if (cnt === ALL_EXERCISES.length) playerDoneDays++;
-      let cls = 'cell-none', label = '–';
-      if (cnt === ALL_EXERCISES.length) { cls = 'cell-done'; label = '✓'; }
-      else if (cnt > 0) { cls = 'cell-part'; label = cnt; }
-      return `<td data-cell-date="${d}" data-cell-player="${p}" style="cursor:pointer" title="${p} (${d}): ${cnt}/20 ćwiczeń"><span class="cell-badge ${cls}">${label}</span></td>`;
-    }).join('');
-
-    return `
-      <tr>
-        <td class="player-col">
-          <b>${p}</b>
-          <small style="display:block;color:var(--muted);font-size:.73rem">Ukończone: ${playerDoneDays}/${dates.length} dni</small>
-        </td>
-        ${cells}
-      </tr>
-    `;
-  }).join('');
-
-  $('calendarMatrixTable').innerHTML = `
-    <thead>
-      <tr>
-        <th class="player-col">Zawodnik (${selectedTeam})</th>
-        ${headCells}
-      </tr>
-    </thead>
-    <tbody>${bodyRows}</tbody>
-  `;
-
-  // Kliknięcie w komórkę pozwala trenerowi przełączyć status wykonania
-  document.querySelectorAll('[data-cell-date]').forEach(td => {
-    td.onclick = () => {
-      const d = td.dataset.cellDate;
-      const p = td.dataset.cellPlayer;
-      const cur = getDoneSet(d, selectedTeam, p);
-      if (cur.size === ALL_EXERCISES.length) {
-        setDoneSet(d, selectedTeam, p, new Set());
-      } else {
-        setDoneSet(d, selectedTeam, p, new Set(Array.from({length: ALL_EXERCISES.length}, (_, i) => i)));
-      }
-      renderCoachCalendar();
-      renderPlayerWorkout();
-    };
-  });
-}
-
-// 7. ZARZĄDZANIE KADRĄ I SYNCHRONIZACJA
-function renderSyncAndRoster() {
-  const teams = Object.keys(roster);
-  const sel = $('manageTeamSelect');
-  const cur = sel.value && roster[sel.value] ? sel.value : teams[0];
-  sel.innerHTML = teams.map(t => `<option value="${t}">${t}</option>`).join('');
-  sel.value = cur;
-
-  const list = roster[cur] || [];
-  $('rosterListContainer').innerHTML = list.map(p => `
-    <div class="player-item">
-      <b>${p}</b>
-      <button class="del-btn" data-del-player="${p}">Usuń</button>
-    </div>
-  `).join('');
-
-  document.querySelectorAll('[data-del-player]').forEach(btn => {
-    btn.onclick = () => {
-      const p = btn.dataset.delPlayer;
-      roster[cur] = roster[cur].filter(x => x !== p);
-      saveJSON(STORAGE_KEYS.roster, roster);
-      renderSyncAndRoster();
-      renderCoachCalendar();
-    };
-  });
-
-  $('gasUrlInput').value = gasUrl;
-}
-
-// 8. MODAL PROFILU
-let modalRole = currentProfile.role || 'player';
-function openProfileModal() {
-  modalRole = currentProfile.role || 'player';
-  updateModalFields();
-  $('profileModal').classList.add('show');
-}
-function updateModalFields() {
-  $('rolePlayerBtn').classList.toggle('active', modalRole === 'player');
-  $('roleCoachBtn').classList.toggle('active', modalRole === 'coach');$('modalPlayerField').style.display = modalRole === 'player' ? 'block' : 'none';
-
-  const teams = Object.keys(roster);
-  const tSel = $('modalTeamSelect');
-  const chosenTeam = tSel.value && roster[tSel.value] ? tSel.value : currentProfile.team || teams[0];
-  tSel.innerHTML = teams.map(t => `<option value="${t}">${t}</option>`).join('');
-  tSel.value = chosenTeam;
-
-  const players = roster[chosenTeam] || [];
-  const pSel = $('modalPlayerSelect');
-  pSel.innerHTML = players.map(p => `<option value="${p}">${p}</option>`).join('');
-  if (players.includes(currentProfile.player)) pSel.value = currentProfile.player;
-}
-
-// 9. STOPER Z DŹWIĘKIEM WEB AUDIO API
 function beep() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1235,228 +552,177 @@ function beep() {
     osc.connect(gain);
     gain.connect(ctx.destination);
     osc.start();
-    setTimeout(() => { osc.stop(); ctx.close(); }, 260);
+    setTimeout(() => { osc.stop(); ctx.close(); }, 250);
   } catch (e) {}
 }
-function fmtTime(s) {
-  return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
-}
-function resetTimer(sec) {
-  clearInterval(timerInterval);
-  timerInterval = null;
-  timerRemaining = sec;
-  $('timerDisplay').textContent = fmtTime(timerRemaining);$('timerStartBtn').textContent = "▶ Start";
-}
 
-// 10. WYSYŁKA I POBIERANIE Z GOOGLE SHEETS (OPCJONALNIE)
-async function syncReportToCloud() {
-  const done = getDoneSet(currentDate, currentProfile.team, currentProfile.player);
-  if (!gasUrl) {
-    alert(`Zapisano lokalnie raport dla: ${currentProfile.player} (${currentDate}) — ${done.size}/20 ćwiczeń.\n\nAby raporty z telefonów zawodników trafiały na żywo na Twój komputer/telefon, podłącz Arkusz Google w zakładce „Synchronizacja & Kadra”.`);
-    return;
-  }
-  const btn = $('saveReportBtn');
-  btn.textContent = "Wysyłanie...";
+function safeLoad() {
   try {
-    await fetch(gasUrl, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify({
-        date: currentDate,
-        team: currentProfile.team,
-        player: currentProfile.player,
-        count: done.size,
-        done: [...done]
-      })
-    });
-    btn.textContent = "✓ Wysłano do Trenera!";
-    setTimeout(() => { btn.textContent = "✓ Zapisz i wyślij raport dnia"; }, 2500);
-  } catch (err) {
-    alert("Zapisano w pamięci telefonu, ale wystąpił błąd połączenia z arkuszem.");
-    btn.textContent = "✓ Zapisz i wyślij raport dnia";
-  }
+    const d = JSON.parse(localStorage.getItem('olimpiaPrepDone') || '[]');
+    done = new Set(d.filter(n => Number.isInteger(n) && n >= 0 && n < exercises.length));
+  } catch (e) { done = new Set(); }
 }
 
-async function fetchLogsFromCloud() {
-  if (!gasUrl) {
-    renderCoachCalendar();
-    return;
-  }
-  try {
-    const res = await fetch(gasUrl);
-    const rows = await res.json();
-    rows.forEach(r => {
-      const date = String(r[1] || "").slice(0, 10);
-      const team = r[2];
-      const player = r[3];
-      if (date && team && player) {
-        try {
-          const parsed = JSON.parse(r[5] || "[]");
-          logs[logKey(date, team, player)] = parsed;
-        } catch (e) {}
-      }
-    });
-    saveJSON(STORAGE_KEYS.logs, logs);
-    renderCoachCalendar();
-  } catch (e) {
-    alert("Nie udało się pobrać danych z Google Sheets. Sprawdź adres URL Web App.");
-  }
+function save() {
+  try { localStorage.setItem('olimpiaPrepDone', JSON.stringify([...done])); } catch (e) {}
 }
 
-// 11. ZDARZENIA INTERFEJSU
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const view = btn.dataset.view;
-    document.querySelectorAll('.view-section').forEach(s => s.style.display = 'none');
-    $(`view-${view}`).style.display = 'block';
-    $('playerDateBar').style.display = (view === 'player' || view === 'poster') ? 'flex' : 'none';
-    if (view === 'poster') renderPosterView();
-    if (view === 'coach') renderCoachCalendar();
-    if (view === 'sync') renderSyncAndRoster();
-  };
-});
+function renderStages() {
+  $('stageList').innerHTML = stages.map(s => {
+    const ids = exercises.map((e, i) => e.stage === s.id ? i : -1).filter(i => i >= 0);
+    const complete = ids.every(i => done.has(i));
+    return `
+      <button class="stage-btn ${exercises[active].stage === s.id ? 'active' : ''}" data-stage="${s.id}">
+        <span class="stage-number">${complete ? '✓' : s.id}</span>
+        <span class="stage-text">
+          <b>${s.title}</b>
+          <small>${s.time} · ${s.tag}</small>
+        </span>
+        ${complete ? '<span class="checkmark">✓</span>' : ''}
+      </button>`;
+  }).join('');
 
-$('workoutDateInput').onchange = e => {
-  if (e.target.value) {
-    currentDate = e.target.value;
-    renderPlayerWorkout();
-    renderPosterView();
-  }
-};
-
-$('exDoneCheck').onchange = e => {
-  toggleExerciseDone(activeExIndex, e.target.checked);
-};
-
-$('prevExBtn').onclick = () => {
-  if (activeExIndex > 0) {
-    activeExIndex--;
-    renderPlayerWorkout();
-  }
-};
-
-$('nextExBtn').onclick = () => {
-  if (activeExIndex < ALL_EXERCISES.length - 1) {
-    activeExIndex++;
-    renderPlayerWorkout();
-  } else {
-    syncReportToCloud();
-  }
-};
-
-$('markAllStageBtn').onclick = () => {
-  const stId = ALL_EXERCISES[activeExIndex].stageId;
-  const done = getDoneSet(currentDate, currentProfile.team, currentProfile.player);
-  ALL_EXERCISES.forEach((item, idx) => {
-    if (item.stageId === stId) done.add(idx);
+  document.querySelectorAll('[data-stage]').forEach(b => {
+    b.onclick = () => {
+      active = exercises.findIndex(e => e.stage === Number(b.dataset.stage));
+      render();
+    };
   });
-  setDoneSet(currentDate, currentProfile.team, currentProfile.player, done);
-  renderPlayerWorkout();
+}
+
+function renderAll() {
+  $('allExercises').innerHTML = stages.map(s => `
+    <div class="all-stage">
+      <h3>${s.id}. ${s.title} · ${s.time}</h3>
+      ${exercises.map((e, i) => ({e, i})).filter(x => x.e.stage === s.id).map(({e, i}) => `
+        <label class="exercise-row">
+          <input type="checkbox" data-done="${i}" ${done.has(i) ? 'checked' : ''}>
+          <div>
+            <b>${e.name}</b>
+            <small>${e.dose}</small>
+          </div>
+        </label>
+      `).join('')}
+    </div>
+  `).join('');
+
+  document.querySelectorAll('[data-done]').forEach(c => {
+    c.onchange = () => {
+      toggleDone(Number(c.dataset.done), c.checked);
+      render();
+    };
+  });
+}
+
+function render() {
+  const e = exercises[active];
+  $('stageEyebrow').textContent = `ETAP ${e.stage} Z 5 · ĆWICZENIE ${active + 1}/${exercises.length}`;
+  $('stageTag').textContent = `${e.stageTime} • ${e.tag}`;
+  $('exerciseName').textContent = e.name;
+  $('exerciseDose').textContent = e.dose;
+  $('stageGoal').textContent = e.goal;
+  $('exerciseHow').textContent = e.how;
+  $('exerciseEquipment').textContent = e.equipment;
+  $('doneCheck').checked = done.has(active);
+
+  $('prevBtn').disabled = active === 0;
+  $('nextBtn').textContent = active === exercises.length - 1 ? 'Zakończ plan →' : 'Następne ćwiczenie →';
+
+  const pct = Math.round(done.size / exercises.length * 100);
+  $('heroDone').textContent = `${done.size}/${exercises.length}`;
+  $('progressText').textContent = `${pct}%`;
+  $('progressBar').style.width = pct + '\%';$('progressSub').textContent = pct === 100
+    ? 'Wszystkie ćwiczenia oznaczone jako wykonane!'
+    : `Pozostało ${exercises.length - done.size} ćwiczeń.`;
+
+  $('finishBox').classList.toggle('show', active === exercises.length - 1 && done.size === exercises.length);
+  renderStages();
+  renderAll();
+  resetTimer(e.seconds);
+}
+
+function toggleDone(i, value) {
+  if (value) done.add(i); else done.delete(i);
+  save();
+}
+
+function resetTimer(seconds) {
+  clearInterval(interval);
+  interval = null;
+  remaining = seconds;
+  $('timerDisplay').textContent = fmt(remaining);$('timerStart').textContent = '▶ Start';
+}
+
+function fmt(n) {
+  return `${String(Math.floor(n / 60)).padStart(2, '0')}:${String(n % 60).padStart(2, '0')}`;
+}
+
+$('doneCheck').onchange = e => {
+  toggleDone(active, e.target.checked);
+  render();
 };
 
-$('markAllDayBtn').onclick = () => {
-  const all = new Set(Array.from({length: ALL_EXERCISES.length}, (_, i) => i));
-  setDoneSet(currentDate, currentProfile.team, currentProfile.player, all);
-  renderPlayerWorkout();
-  renderPosterView();
+$('prevBtn').onclick = () => {
+  if (active > 0) { active--; render(); }
 };
 
-$('saveReportBtn').onclick = () => syncReportToCloud();
+$('nextBtn').onclick = () => {
+  if (active < exercises.length - 1) {
+    active++;
+    render();
+  } else {
+    $('finishBox').classList.add('show');$('finishText').textContent = `Oznaczone jako wykonane: ${done.size} z ${exercises.length}. Możesz przejrzeć listę ćwiczeń lub wyzerować postęp przed kolejnym treningiem.`;
+    $('finishBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+};
 
-$('timerStartBtn').onclick = () => {
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-    $('timerStartBtn').textContent = "▶ Wznów";
+$('timerStart').onclick = () => {
+  if (interval) {
+    clearInterval(interval);
+    interval = null;
+    $('timerStart').textContent = '▶ Wznów';
     return;
   }
-  if (timerRemaining <= 0) timerRemaining = ALL_EXERCISES[activeExIndex].seconds;
-  $('timerStartBtn').textContent = "⏸ Pauza";
-  timerInterval = setInterval(() => {
-    timerRemaining--;
-    $('timerDisplay').textContent = fmtTime(Math.max(0, timerRemaining));
-    if (timerRemaining <= 0) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      $('timerStartBtn').textContent = "↻ Powtórz";
+  if (remaining <= 0) remaining = exercises[active].seconds;
+  $('timerStart').textContent = '⏸ Pauza';
+  interval = setInterval(() => {
+    remaining--;
+    $('timerDisplay').textContent = fmt(Math.max(0, remaining));
+    if (remaining <= 0) {
+      clearInterval(interval);
+      interval = null;
+      $('timerStart').textContent = '↻ Jeszcze raz';
       beep();
-      if ('vibrate' in navigator) navigator.vibrate([160, 80, 160]);
+      if ('vibrate' in navigator) navigator.vibrate([180, 80, 180]);
     }
   }, 1000);
 };
-$('timerPlusBtn').onclick = () => {
-  timerRemaining += 15;
-  $('timerDisplay').textContent = fmtTime(timerRemaining);
-};
-$('timerResetBtn').onclick = () => resetTimer(ALL_EXERCISES[activeExIndex].seconds);
 
-// Zdarzenia modala profilu
-$('changeProfileBtn').onclick = () => openProfileModal();
-$('rolePlayerBtn').onclick = () => { modalRole = 'player'; updateModalFields(); };$('roleCoachBtn').onclick = () => { modalRole = 'coach'; updateModalFields(); };
-$('modalTeamSelect').onchange = () => updateModalFields();$('confirmProfileBtn').onclick = () => {
-  const team = $('modalTeamSelect').value;
-  const player = $('modalPlayerSelect').value || (roster[team] && roster[team][0]) || "Zawodnik";
-  currentProfile = { role: modalRole, team, player };
-  saveJSON(STORAGE_KEYS.profile, currentProfile);
-  $('profileModal').classList.remove('show');
-  renderPlayerWorkout();
-  renderCoachCalendar();
-  if (modalRole === 'coach') {
-    document.querySelector('[data-view="coach"]').click();
-  } else {
-    document.querySelector('[data-view="player"]').click();
+$('timerPlus').onclick = () => {
+  remaining += 15;
+  $('timerDisplay').textContent = fmt(remaining);
+};
+
+$('timerReset').onclick = () => resetTimer(exercises[active].seconds);
+
+$('resetBtn').onclick = () => {
+  if (confirm('Na pewno wyzerować postęp całego planu?')) {
+    done.clear();
+    save();
+    active = 0;
+    render();
   }
 };
 
-// Zdarzenia panelu trenera i kadry
-$('coachTeamSelect').onchange = () => renderCoachCalendar();$('coachRangeSelect').onchange = () => renderCoachCalendar();
-$('refreshCloudBtn').onclick = () => fetchLogsFromCloud();$('manageTeamSelect').onchange = () => renderSyncAndRoster();
-
-$('addPlayerBtn').onclick = () => {
-  const team = $('manageTeamSelect').value;
-  const name = $('newPlayerName').value.trim();
-  if (!name) return;
-  if (!roster[team].includes(name)) {
-    roster[team].push(name);
-    saveJSON(STORAGE_KEYS.roster, roster);
-  }
-  $('newPlayerName').value = "";
-  renderSyncAndRoster();
-  renderCoachCalendar();
+$('restartBtn').onclick = () => {
+  active = 0;
+  $('finishBox').classList.remove('show');
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-$('addTeamBtn').onclick = () => {
-  const t = $('newTeamName').value.trim();
-  if (!t) return;
-  if (!roster[t]) roster[t] = [];
-  saveJSON(STORAGE_KEYS.roster, roster);
-  $('newTeamName').value = "";
-  $('manageTeamSelect').value = t;
-  renderSyncAndRoster();
-  renderCoachCalendar();
-};
-
-$('saveGasUrlBtn').onclick = () => {
-  gasUrl = $('gasUrlInput').value.trim();
-  localStorage.setItem(STORAGE_KEYS.gasUrl, gasUrl);
-  alert("Zapisano adres Google Apps Script.");
-  renderCoachCalendar();
-};
-
-$('seedDemoBtn').onclick = () => {
-  logs = {};
-  ensureInitialDemoLogs();
-  renderPlayerWorkout();
-  renderCoachCalendar();
-  alert("Wygenerowano przykładową historię wykonania PREP-u dla zawodników.");
-};
-
-// START APLIKACJI
-ensureInitialDemoLogs();
-renderPlayerWorkout();
+safeLoad();
+render();
 </script>
 </body>
 </html>
