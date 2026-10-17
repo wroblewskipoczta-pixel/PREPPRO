@@ -1,0 +1,38 @@
+[
+  {
+    "source": "IMG_6375.MOV",
+    "key": "chod-bokiem-guma",
+    "start_frame": 40,
+    "end_frame_exclusive": 179,
+    "frames": 139,
+    "duration_seconds": 4.633,
+    "bytes": 805621
+  },
+  {
+    "source": "IMG_6377.MOV",
+    "key": "most-biodrowy",
+    "start_frame": 24,
+    "end_frame_exclusive": 162,
+    "frames": 138,
+    "duration_seconds": 4.6,
+    "bytes": 490804
+  },
+  {
+    "source": "IMG_6378.MOV",
+    "key": "odwodzenie-biodra-guma",
+    "start_frame": 25,
+    "end_frame_exclusive": 193,
+    "frames": 168,
+    "duration_seconds": 5.6,
+    "bytes": 628690
+  },
+  {
+    "source": "IMG_6381.MOV",
+    "key": "dead-bug",
+    "start_frame": 14,
+    "end_frame_exclusive": 179,
+    "frames": 165,
+    "duration_seconds": 5.5,
+    "bytes": 941013
+  }
+]

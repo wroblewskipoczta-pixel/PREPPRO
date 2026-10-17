@@ -72,11 +72,17 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
   gap: 14px;
 }
 .crest {
-  width: 56px;
-  height: 68px;
+  display: block;
+  position: relative;
+  width: 66px;
+  aspect-ratio: 850 / 1132;
+  overflow: hidden;
+  background: transparent;
   flex-shrink: 0;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
 }
+/* Przezroczysty herb z niewielkim marginesem wokół złotej obwódki. */
+.crest img { position: absolute; width: 140.82353%; max-width: none; height: auto; left: -20.70588%; top: -7.77385%; }
 .club-sub {
   display: block;
   font-size: .74rem;
@@ -285,6 +291,20 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 .timer-actions { display: flex; gap: 7px; flex-wrap: wrap; }
 .timer-actions .btn { padding: 9px 13px; font-size: .86rem; }
 
+/* Pionowy pokaz ruchu i timer pozostają obok siebie także na telefonie. */
+[hidden] { display: none !important; }
+.practice { margin: 18px 0; }
+.practice .timerbox { margin-top: 0; }
+.practice.has-video { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(108px, 1fr); gap: 12px; align-items: start; }
+.video-panel { min-width: 0; margin: 0; }
+.video-panel video { display: block; width: 100%; max-height: 360px; aspect-ratio: 9 / 16; object-fit: contain; background: #13241b; border-radius: 14px; }
+.video-panel figcaption { margin-top: 7px; font-size: .75rem; color: var(--muted); }
+.video-panel .btn { width: 100%; min-height: 44px; margin-top: 8px; padding: 8px; font-size: .8rem; }
+.practice.has-video .timerbox { padding: 12px; flex-direction: column; align-items: stretch; gap: 10px; }
+.practice.has-video .timer-actions { display: grid; grid-template-columns: 1fr; width: 100%; }
+.practice.has-video .timer-actions .btn { min-height: 44px; padding: 9px 6px; }
+.practice.has-video .time { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+
 /* ALL EXERCISES LIST */
 .list { margin-top: 18px; }
 .list summary { cursor: pointer; font-weight: 850; padding: 6px 0; font-size: 1rem; }
@@ -338,24 +358,7 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
   <header class="hero">
     <div class="brand">
       <div class="brand-left">
-        <!-- Wektorowy Herb GKS Olimpia Grudziądz -->
-        <svg class="crest" viewBox="0 0 200 245" xmlns="http://www.w3.org/2000/svg" aria-label="GKS Olimpia Grudziądz">
-          <path d="M6 6 H194 V145 C194 202 100 239 100 239 C100 239 6 202 6 145 Z" fill="#ffffff" stroke="#c8a45d" stroke-width="8"/>
-          <path d="M10 74 H190" stroke="#c8a45d" stroke-width="6"/>
-          <text x="100" y="36" text-anchor="middle" fill="#c8a45d" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-size="25" letter-spacing="0.5">GKS"OLIMPIA"</text>
-          <text x="100" y="65" text-anchor="middle" fill="#c8a45d" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-size="26" letter-spacing="1">GRUDZIĄDZ</text>
-          <clipPath id="shieldBottom">
-            <path d="M10 77 H190 V145 C190 198 100 234 100 234 C100 234 10 198 10 145 Z"/>
-          </clipPath>
-          <g clip-path="url(#shieldBottom)">
-            <rect x="10" y="77" width="180" height="165" fill="#ffffff"/>
-            <rect x="10" y="77" width="26" height="165" fill="#0f5c35"/>
-            <rect x="61" y="77" width="26" height="165" fill="#0f5c35"/>
-            <rect x="113" y="77" width="26" height="165" fill="#0f5c35"/>
-            <rect x="164" y="77" width="26" height="165" fill="#0f5c35"/>
-          </g>
-          <path d="M6 6 H194 V145 C194 202 100 239 100 239 C100 239 6 202 6 145 Z" fill="none" stroke="#c8a45d" stroke-width="8"/>
-        </svg>
+        <span class="crest"><img src="assets/branding/olimpia-grudziadz-transparent-v2.png" alt="Herb GKS Olimpia Grudziądz" width="1197" height="1315"></span>
         <div>
           <span class="club-sub">GKS „Olimpia” Grudziądz</span>
           <div class="logo">PREP PRO</div>
@@ -409,6 +412,26 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
         <div class="equipment"><b>Sprzęt:</b> <span id="exerciseEquipment"></span></div>
 
+        <div class="practice" id="practice">
+          <figure class="video-panel" id="videoPanel" hidden>
+            <video id="exerciseVideo" loop muted playsinline preload="metadata" aria-label="Pokaz wykonania ćwiczenia" aria-describedby="videoStatus"></video>
+            <figcaption id="videoStatus" role="status">Pokaz ruchu · w pętli · bez dźwięku</figcaption>
+            <button class="btn secondary" id="videoToggle" type="button" aria-controls="exerciseVideo">▶ Odtwórz pokaz</button>
+          </figure>
+          <div class="timerbox">
+            <div>
+              <small>TIMER DO ĆWICZENIA</small>
+              <div class="time" id="timerDisplay" role="timer" aria-live="off">00:30</div>
+            </div>
+            <div class="timer-actions">
+              <button class="btn primary" id="timerStart">▶ Start</button>
+              <button class="btn secondary" id="timerPlus">+15s</button>
+              <button class="btn secondary" id="timerReset">↻ Reset</button>
+            </div>
+          </div>
+        </div>
+        <p class="notice">Timer jest pomocniczy — czas dopasuj do zaleceń trenera i własnego tempa pracy.</p>
+
         <label class="complete">
           <input type="checkbox" id="doneCheck">
           <span>Oznacz ćwiczenie jako wykonane</span>
@@ -419,18 +442,6 @@ button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
           <button class="btn primary" id="nextBtn">Następne ćwiczenie →</button>
         </div>
 
-        <div class="timerbox">
-          <div>
-            <small>TIMER DO ĆWICZENIA</small>
-            <div class="time" id="timerDisplay">00:30</div>
-          </div>
-          <div class="timer-actions">
-            <button class="btn primary" id="timerStart">▶ Start</button>
-            <button class="btn secondary" id="timerPlus">+15s</button>
-            <button class="btn secondary" id="timerReset">↻ Reset</button>
-          </div>
-        </div>
-        <p class="notice">Timer jest pomocniczy — czas dopasuj do zaleceń trenera i własnego tempa pracy.</p>
       </section>
 
       <div class="finish" id="finishBox">
@@ -456,14 +467,14 @@ const stages = [
     title: "Mobilność i podniesienie temperatury",
     time: "3 min",
     tag: "Lekka intensywność",
-    equipment: "Bez sprzętu / ściana",
+    equipment: "Bez sprzętu",
     goal: "Podniesienie temperatury ciała i mobilizacja kluczowych stawów przed jednostką.",
     exercises: [
-      ["Marsz z pracą ramion lub trucht w miejscu", "30 s", "Maszeruj dynamicznie lub lekko truchtaj. Pracuj ramionami, utrzymuj wyprostowaną sylwetkę i stopniowo zwiększaj tempo.", 30],
-      ["Mobilizacja stawu skokowego przy ścianie", "8 / strona", "Ustaw stopę kilka centymetrów od ściany. Prowadź kolano nad stopą w kierunku ściany, nie odrywając pięty.", 40],
-      ["Wykrok z rotacją tułowia", "4 / strona", "Wykonaj wykrok, ustabilizuj biodra i obróć klatkę piersiową w stronę nogi wykrocznej. Ruch wykonuj spokojnie.", 40],
-      ["Mobilizacja bioder 90/90", "5 / strona", "Usiądź z nogami ugiętymi pod kątem około 90 stopni. Przenoś kolana z jednej strony na drugą, utrzymując kontrolę ruchu.", 40],
-      ["Wspięcia na palce", "12 powt.", "Unieś pięty, napnij łydki i powoli wróć do podłoża. Nie kołysz tułowiem.", 30]
+      ["Marsz z pracą ramion lub trucht w miejscu", "30 s", "Maszeruj dynamicznie lub lekko truchtaj. Pracuj ramionami, utrzymuj wyprostowaną sylwetkę i stopniowo zwiększaj tempo.", 30, "marsz-praca-ramion"],
+      ["Mobilizacja stawu skokowego w wykroku", "8 / strona", "Ustaw się w wykroku i wyciągnij ręce przed siebie. Powoli ugnij kolana, przenosząc ciężar ciała do przodu. Prowadź przednie kolano w osi stopy i utrzymuj przednią piętę na podłożu. Wróć do pozycji wyjściowej. Wykonaj powtórzenia na obie strony.", 40, "mobilizacja-skokowego-wykrok"],
+      ["Wykrok z rotacją tułowia", "4 / strona", "Wykonaj wykrok, ustabilizuj biodra i obróć klatkę piersiową w stronę nogi wykrocznej. Ruch wykonuj spokojnie.", 40, "wykrok-rotacja"],
+      ["Mobilizacja bioder 90/90", "5 / strona", "Usiądź z nogami ugiętymi pod kątem około 90 stopni. Przenoś kolana z jednej strony na drugą, utrzymując kontrolę ruchu.", 40, "biodra-90-90"],
+      ["Wspięcia na palce", "12 powt.", "Unieś pięty, napnij łydki i powoli wróć do podłoża. Nie kołysz tułowiem.", 30, "wspiecia-palce"]
     ]
   },
   {
@@ -474,10 +485,10 @@ const stages = [
     equipment: "Guma mini band",
     goal: "Aktywacja pośladków i kontrola miednicy bez nadmiernego zmęczenia.",
     exercises: [
-      ["Chód bokiem z gumą nad kolanami", "8 kroków / strona", "Ustaw stopy na szerokość bioder, lekko ugnij kolana i wykonuj kontrolowane kroki w bok. Utrzymuj stałe napięcie gumy.", 40],
-      ["Most biodrowy", "10 powt.", "Połóż się na plecach, ugnij kolana i oprzyj stopy o podłoże. Unieś biodra przez napięcie pośladków, nie przeprostowując odcinka lędźwiowego.", 40],
-      ["Odwodzenie biodra z gumą", "8 / strona", "Utrzymując stabilną miednicę, odwiedź nogę na bok przeciw oporowi gumy. Nie przechylaj tułowia.", 40],
-      ["Marsz w podporze lub dead bug", "6 / strona", "W wersji dead bug leż na plecach z uniesionymi rękami i nogami. Naprzemiennie opuszczaj przeciwną rękę i nogę, utrzymując stabilny tułów. W podporze unoś kończyny bez rotowania bioder.", 45]
+      ["Chód bokiem z gumą nad kolanami", "8 kroków / strona", "Ustaw stopy na szerokość bioder, lekko ugnij kolana i wykonuj kontrolowane kroki w bok. Utrzymuj stałe napięcie gumy.", 40, "chod-bokiem-guma"],
+      ["Most biodrowy", "10 powt.", "Połóż się na plecach, ugnij kolana i oprzyj stopy o podłoże. Unieś biodra przez napięcie pośladków, nie przeprostowując odcinka lędźwiowego.", 40, "most-biodrowy"],
+      ["Odwodzenie biodra z gumą", "8 / strona", "Utrzymując stabilną miednicę, odwiedź nogę na bok przeciw oporowi gumy. Nie przechylaj tułowia.", 40, "odwodzenie-biodra-guma"],
+      ["Marsz w podporze lub dead bug", "6 / strona", "W wersji dead bug leż na plecach z uniesionymi rękami i nogami. Naprzemiennie opuszczaj przeciwną rękę i nogę, utrzymując stabilny tułów. W podporze unoś kończyny bez rotowania bioder.", 45, "dead-bug"]
     ]
   },
   {
@@ -488,10 +499,10 @@ const stages = [
     equipment: "Masa ciała; opcjonalnie lekkie hantle",
     goal: "Kontrola kolana, biodra i tułowia oraz przygotowanie łańcucha tylnego.",
     exercises: [
-      ["Przysiad z masą ciała", "8 powt.", "Ustaw stopy stabilnie, cofaj biodra i uginaj kolana. Utrzymuj całe stopy na podłożu i kolana w osi stóp.", 40],
-      ["RDL na jednej nodze bez obciążenia", "5 / strona", "Stań na jednej nodze, lekko ugnij kolano i cofaj biodro, pochylając tułów. Drugą nogę prowadź do tyłu. Utrzymuj miednicę stabilnie.", 45],
-      ["Wspięcie na palce z ugiętym kolanem", "8 / strona", "Lekko ugnij kolano nogi podporowej i unieś piętę. Kontroluj równowagę oraz powrót do pozycji początkowej.", 40],
-      ["Pompka łopatkowa", "8 powt.", "Przyjmij pozycję podporu na dłoniach. Bez uginania łokci pozwól klatce piersiowej delikatnie opaść między łopatki, a następnie odepchnij podłoże.", 40]
+      ["Przysiad z masą ciała", "8 powt.", "Ustaw stopy stabilnie, cofaj biodra i uginaj kolana. Utrzymuj całe stopy na podłożu i kolana w osi stóp.", 40, "przysiad-masa-ciala"],
+      ["RDL na jednej nodze bez obciążenia", "5 / strona", "Stań na jednej nodze, lekko ugnij kolano i cofaj biodro, pochylając tułów. Drugą nogę prowadź do tyłu. Utrzymuj miednicę stabilnie.", 45, "rdl-jedna-noga"],
+      ["Wspięcie na palce z ugiętym kolanem", "8 / strona", "Lekko ugnij kolano nogi podporowej i unieś piętę. Kontroluj równowagę oraz powrót do pozycji początkowej.", 40, "wspiecie-ugiete-kolano"],
+      ["Pompka klasyczna", "8 powt.", "Przyjmij pozycję podporu na dłoniach, utrzymując tułów i nogi w jednej linii. Ugnij łokcie i kontrolowanie opuść klatkę piersiową w kierunku podłoża. Odepchnij podłoże, prostując ramiona i wracając do pozycji wyjściowej.", 40, "pompka-klasyczna"]
     ]
   },
   {
@@ -502,10 +513,10 @@ const stages = [
     equipment: "Wolna, stabilna powierzchnia",
     goal: "Przygotowanie do kontaktu z podłożem, stabilnego lądowania i hamowania.",
     exercises: [
-      ["Szybkie wspięcia na palce", "10 powt.", "Wykonuj dynamiczne, sprężyste wspięcia na palce, zachowując kontrolę i stabilność stawów skokowych.", 30],
-      ["Snap-down: szybkie zejście do pozycji atletycznej i zatrzymanie", "4 powt.", "Stań wyprostowany, szybko zejdź do pozycji atletycznej z ugiętymi biodrami i kolanami, a następnie zatrzymaj ruch. Utrzymaj stabilne kolana.", 35],
-      ["Podskoki obunóż o małej amplitudzie", "2 × 8", "Wykonuj niskie, rytmiczne podskoki na obu stopach. Ląduj cicho, sprężyście i z kontrolą ustawienia kolan.", 40],
-      ["Lądowanie na jednej nodze z utrzymaniem równowagi", "3 / strona", "Wykonaj niewielki podskok lub krok z lądowaniem na jednej nodze. Zamortyzuj ruch i utrzymaj stabilną pozycję przez 2–3 sekundy.", 45]
+      ["Niskie podskoki obunóż (pogo)", "10 powt.", "Wykonuj niskie, rytmiczne podskoki obunóż z krótkim odbiciem od podłoża. Utrzymuj wyprostowany tułów i niewielkie ugięcie kolan. Ląduj sprężyście i zachowuj kontrolę przy kolejnych odbiciach.", 30, "pogo-obunoz"],
+      ["Snap-down: szybkie zejście do pozycji atletycznej i zatrzymanie", "4 powt.", "Stań wyprostowany, szybko zejdź do pozycji atletycznej z ugiętymi biodrami i kolanami, a następnie zatrzymaj ruch. Utrzymaj stabilne kolana.", 35, "snap-down"],
+      ["Podskoki obunóż z unoszeniem kolan", "2 × 8", "Odbij się obunóż i unieś kolana podczas podskoku. Opuść nogi przed kontaktem z podłożem i zamortyzuj lądowanie, uginając biodra i kolana. Zachowuj kontrolę tułowia i ustawienia kolan przy kolejnych powtórzeniach.", 40, "podskoki-unoszenie-kolan"],
+      ["Przeskoki z nogi na nogę", "3 / strona", "Wykonuj przeskoki w bok z jednej nogi na drugą. Ląduj na jednej nodze, amortyzując ruch ugięciem biodra i kolana, a następnie odbij się w przeciwną stronę. Utrzymuj kontrolę tułowia i kolana nogi podporowej.", 45, "przeskoki-noga-noga"]
     ]
   },
   {
@@ -516,12 +527,96 @@ const stages = [
     equipment: "Odcinek 5–10 m i pachołki",
     goal: "Pobudzenie układu nerwowego przed wyjściem na boisko — szybkość reakcji, przyspieszenie i bezpieczne wyhamowanie.",
     exercises: [
-      ["Szybkie stopy w miejscu", "2 × 5 s", "Wykonuj bardzo szybkie, krótkie kroki w miejscu. Utrzymuj lekko ugięte kolana, aktywne ramiona i stabilny tułów.", 20],
-      ["Starty z pozycji atletycznej", "3 × 5–10 m", "Przyjmij pozycję atletyczną, pochyl lekko tułów i przyspieszaj dynamicznie przez wyznaczony odcinek. Odpocznij podczas powrotu.", 35],
-      ["Dwa kontrolowane hamowania po krótkim przyspieszeniu", "2 hamowania", "Przyspiesz na krótkim odcinku, a następnie stopniowo wytracaj prędkość krótkimi krokami. Utrzymuj stabilne biodra i kolana.", 40]
+      ["Szybkie stopy w miejscu", "2 × 5 s", "Wykonuj bardzo szybkie, krótkie kroki w miejscu. Utrzymuj lekko ugięte kolana, aktywne ramiona i stabilny tułów.", 20, "szybkie-stopy"],
+      ["Starty z pozycji atletycznej", "3 × 5–10 m", "Przyjmij pozycję atletyczną, pochyl lekko tułów i przyspieszaj dynamicznie przez wyznaczony odcinek. Odpocznij podczas powrotu.", 35, "start-atletyczny"],
+      ["Dwa kontrolowane hamowania po krótkim przyspieszeniu", "2 hamowania", "Przyspiesz na krótkim odcinku, a następnie stopniowo wytracaj prędkość krótkimi krokami. Utrzymuj stabilne biodra i kolana.", 40, "hamowania"]
     ]
   }
 ];
+
+// Piąte pole ćwiczenia to stały klucz filmu. Brak klucza zachowuje wersję tekstową.
+const exerciseVideos = {
+  'marsz-praca-ramion': {
+    src: 'assets/videos/marsz-praca-ramion-v2.mp4',
+    poster: 'assets/posters/marsz-praca-ramion-v2.jpg'
+  },
+  'mobilizacja-skokowego-wykrok': {
+    src: 'assets/videos/mobilizacja-skokowego-wykrok-v2.mp4',
+    poster: 'assets/posters/mobilizacja-skokowego-wykrok-v2.jpg'
+  },
+  'wykrok-rotacja': {
+    src: 'assets/videos/wykrok-rotacja-v2.mp4',
+    poster: 'assets/posters/wykrok-rotacja-v2.jpg'
+  },
+  'biodra-90-90': {
+    src: 'assets/videos/biodra-90-90-v2.mp4',
+    poster: 'assets/posters/biodra-90-90-v2.jpg'
+  },
+  'wspiecia-palce': {
+    src: 'assets/videos/wspiecia-palce-v2.mp4',
+    poster: 'assets/posters/wspiecia-palce-v2.jpg'
+  },
+  'chod-bokiem-guma': {
+    src: 'assets/videos/chod-bokiem-guma-v2.mp4',
+    poster: 'assets/posters/chod-bokiem-guma-v2.jpg'
+  },
+  'most-biodrowy': {
+    src: 'assets/videos/most-biodrowy-v2.mp4',
+    poster: 'assets/posters/most-biodrowy-v2.jpg'
+  },
+  'odwodzenie-biodra-guma': {
+    src: 'assets/videos/odwodzenie-biodra-guma-v2.mp4',
+    poster: 'assets/posters/odwodzenie-biodra-guma-v2.jpg'
+  },
+  'dead-bug': {
+    src: 'assets/videos/dead-bug-v2.mp4',
+    poster: 'assets/posters/dead-bug-v2.jpg'
+  },
+  'przysiad-masa-ciala': {
+    src: 'assets/videos/przysiad-masa-ciala-v2.mp4',
+    poster: 'assets/posters/przysiad-masa-ciala-v2.jpg'
+  },
+  'rdl-jedna-noga': {
+    src: 'assets/videos/rdl-jedna-noga-v2.mp4',
+    poster: 'assets/posters/rdl-jedna-noga-v2.jpg'
+  },
+  'wspiecie-ugiete-kolano': {
+    src: 'assets/videos/wspiecie-ugiete-kolano-v2.mp4',
+    poster: 'assets/posters/wspiecie-ugiete-kolano-v2.jpg'
+  },
+  'pompka-klasyczna': {
+    src: 'assets/videos/pompka-klasyczna-v2.mp4',
+    poster: 'assets/posters/pompka-klasyczna-v2.jpg'
+  },
+  'pogo-obunoz': {
+    src: 'assets/videos/pogo-obunoz-v2.mp4',
+    poster: 'assets/posters/pogo-obunoz-v2.jpg'
+  },
+  'snap-down': {
+    src: 'assets/videos/snap-down-v2.mp4',
+    poster: 'assets/posters/snap-down-v2.jpg'
+  },
+  'podskoki-unoszenie-kolan': {
+    src: 'assets/videos/podskoki-unoszenie-kolan-v2.mp4',
+    poster: 'assets/posters/podskoki-unoszenie-kolan-v2.jpg'
+  },
+  'przeskoki-noga-noga': {
+    src: 'assets/videos/przeskoki-noga-noga-v2.mp4',
+    poster: 'assets/posters/przeskoki-noga-noga-v2.jpg'
+  },
+  'szybkie-stopy': {
+    src: 'assets/videos/szybkie-stopy-v2.mp4',
+    poster: 'assets/posters/szybkie-stopy-v2.jpg'
+  },
+  'start-atletyczny': {
+    src: 'assets/videos/start-atletyczny-v2.mp4',
+    poster: 'assets/posters/start-atletyczny-v2.jpg'
+  },
+  'hamowania': {
+    src: 'assets/videos/hamowania-v2.mp4',
+    poster: 'assets/posters/hamowania-v2.jpg'
+  }
+};
 
 const exercises = stages.flatMap(s =>
   s.exercises.map(e => ({
@@ -534,12 +629,99 @@ const exercises = stages.flatMap(s =>
     name: e[0],
     dose: e[1],
     how: e[2],
-    seconds: e[3]
+    seconds: e[3],
+    video: exerciseVideos[e[4]] || null
   }))
 );
 
 let active = 0, done = new Set(), remaining = 30, interval = null;
 const $ = id => document.getElementById(id);
+
+let videoRequest = 0, videoFailed = false;
+const nextVideo = document.createElement('video');
+nextVideo.muted = true;
+nextVideo.preload = 'auto';
+
+function pauseVideo(rewind = false) {
+  videoRequest++;
+  const video = $('exerciseVideo');
+  video.pause();
+  if (rewind && video.readyState > 0) video.currentTime = 0;
+  $('videoToggle').textContent = videoFailed ? '↻ Ponów próbę' : '▶ Odtwórz pokaz';
+  if (!videoFailed) $('videoStatus').textContent = 'Pokaz ruchu · w pętli · bez dźwięku';
+}
+
+function configureVideo(media) {
+  pauseVideo(true);
+  videoFailed = false;
+  const video = $('exerciseVideo');
+  $('videoPanel').hidden = !media;
+  $('practice').classList.toggle('has-video', !!media);
+  $('videoStatus').textContent = 'Pokaz ruchu · w pętli · bez dźwięku';
+  $('videoToggle').textContent = '▶ Odtwórz pokaz';
+  if (!media) {
+    video.removeAttribute('src');
+    video.removeAttribute('poster');
+    video.load();
+  } else {
+    video.muted = true;
+    video.poster = media.poster;
+    video.setAttribute('aria-label', `Pokaz: ${exercises[active].name}`);
+    if (video.getAttribute('src') !== media.src || video.error) {
+      video.src = media.src;
+      video.load();
+    }
+  }
+  // Pobieranie kolejnego pokazu zaczyna się dopiero przy starcie ćwiczenia.
+  if (nextVideo.getAttribute('src')) {
+    nextVideo.removeAttribute('src');
+    nextVideo.load();
+  }
+}
+
+async function playVideo() {
+  if (!exercises[active].video) return;
+  const video = $('exerciseVideo');
+  const request = ++videoRequest;
+  if (videoFailed) {
+    videoFailed = false;
+    video.load();
+  }
+  $('videoStatus').textContent = 'Ładowanie pokazu…';
+  try {
+    await video.play();
+    if (request !== videoRequest) return;
+    $('videoStatus').textContent = 'Pokaz ruchu · w pętli · bez dźwięku';
+    $('videoToggle').textContent = '⏸ Zatrzymaj pokaz';
+  } catch (error) {
+    // Odrzucone odtwarzanie starego ćwiczenia nie zmienia nowego ekranu.
+    if (request !== videoRequest || error.name === 'AbortError') return;
+    if (videoFailed) return;
+    $('videoStatus').textContent = 'Dotknij przycisku, aby uruchomić pokaz. Timer działa niezależnie.';
+    $('videoToggle').textContent = '▶ Odtwórz pokaz';
+  }
+}
+
+function preloadNextVideo() {
+  const connection = navigator.connection;
+  if (connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType || '')) return;
+  const media = exercises[active + 1]?.video;
+  if (media && nextVideo.getAttribute('src') !== media.src) {
+    nextVideo.src = media.src;
+    nextVideo.load();
+  }
+}
+
+$('exerciseVideo').addEventListener('error', () => {
+  if (!exercises[active].video || !$('exerciseVideo').error) return;
+  videoFailed = true;
+  pauseVideo();
+  $('videoStatus').textContent = 'Film niedostępny. Korzystaj z opisu i timera.';
+});
+$('videoToggle').onclick = () => {
+  if ($('exerciseVideo').paused) playVideo();
+  else pauseVideo();
+};
 
 function beep() {
   try {
@@ -639,6 +821,7 @@ function render() {
   renderStages();
   renderAll();
   resetTimer(e.seconds);
+  configureVideo(e.video);
 }
 
 function toggleDone(i, value) {
@@ -650,6 +833,7 @@ function resetTimer(seconds) {
   clearInterval(interval);
   interval = null;
   remaining = seconds;
+  pauseVideo(true);
   $('timerDisplay').textContent = fmt(remaining);$('timerStart').textContent = '▶ Start';
 }
 
@@ -671,6 +855,10 @@ $('nextBtn').onclick = () => {
     active++;
     render();
   } else {
+    clearInterval(interval);
+    interval = null;
+    pauseVideo();
+    $('timerStart').textContent = remaining > 0 ? '▶ Wznów' : '↻ Jeszcze raz';
     $('finishBox').classList.add('show');$('finishText').textContent = `Oznaczone jako wykonane: ${done.size} z ${exercises.length}. Możesz przejrzeć listę ćwiczeń lub wyzerować postęp przed kolejnym treningiem.`;
     $('finishBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
@@ -681,10 +869,14 @@ $('timerStart').onclick = () => {
     clearInterval(interval);
     interval = null;
     $('timerStart').textContent = '▶ Wznów';
+    pauseVideo();
     return;
   }
   if (remaining <= 0) remaining = exercises[active].seconds;
+  $('timerDisplay').textContent = fmt(remaining);
   $('timerStart').textContent = '⏸ Pauza';
+  playVideo();
+  preloadNextVideo();
   interval = setInterval(() => {
     remaining--;
     $('timerDisplay').textContent = fmt(Math.max(0, remaining));
@@ -692,6 +884,7 @@ $('timerStart').onclick = () => {
       clearInterval(interval);
       interval = null;
       $('timerStart').textContent = '↻ Jeszcze raz';
+      pauseVideo(true);
       beep();
       if ('vibrate' in navigator) navigator.vibrate([180, 80, 180]);
     }

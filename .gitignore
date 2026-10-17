@@ -1,0 +1,4 @@
+# Wcześniejsze eksporty pozostają wyłącznie lokalnie.
+assets/videos/*-v1.mp4
+assets/posters/*-v1.jpg
+.DS_Store

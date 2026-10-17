@@ -1,0 +1,29 @@
+[
+  {
+    "source": "IMG_6404.MOV",
+    "key": "szybkie-stopy",
+    "start_frame": 34,
+    "end_frame_exclusive": 83,
+    "frames": 49,
+    "duration_seconds": 1.633,
+    "bytes": 395247
+  },
+  {
+    "source": "IMG_6406.MOV",
+    "key": "start-atletyczny",
+    "start_frame": 33,
+    "end_frame_exclusive": 138,
+    "frames": 105,
+    "duration_seconds": 3.5,
+    "bytes": 517591
+  },
+  {
+    "source": "IMG_6407.MOV",
+    "key": "hamowania",
+    "start_frame": 4,
+    "end_frame_exclusive": 103,
+    "frames": 99,
+    "duration_seconds": 3.3,
+    "bytes": 680644
+  }
+]

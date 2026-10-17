@@ -1,0 +1,38 @@
+[
+  {
+    "source": "IMG_6384.MOV",
+    "key": "przysiad-masa-ciala",
+    "start_frame": 23,
+    "end_frame_exclusive": 96,
+    "frames": 73,
+    "duration_seconds": 2.433,
+    "bytes": 426271
+  },
+  {
+    "source": "IMG_6386.MOV",
+    "key": "rdl-jedna-noga",
+    "start_frame": 41,
+    "end_frame_exclusive": 169,
+    "frames": 128,
+    "duration_seconds": 4.267,
+    "bytes": 770343
+  },
+  {
+    "source": "IMG_6393.MOV",
+    "key": "wspiecie-ugiete-kolano",
+    "start_frame": 15,
+    "end_frame_exclusive": 116,
+    "frames": 101,
+    "duration_seconds": 3.367,
+    "bytes": 517991
+  },
+  {
+    "source": "IMG_6395.MOV",
+    "key": "pompka-klasyczna",
+    "start_frame": 27,
+    "end_frame_exclusive": 107,
+    "frames": 80,
+    "duration_seconds": 2.667,
+    "bytes": 428257
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "source": "IMG_6366.MOV",
+    "key": "mobilizacja-skokowego-wykrok",
+    "start_frame": 49,
+    "end_frame_exclusive": 192,
+    "frames": 143,
+    "duration_seconds": 4.767,
+    "bytes": 578855
+  },
+  {
+    "source": "IMG_6369.MOV",
+    "key": "wykrok-rotacja",
+    "start_frame": 47,
+    "end_frame_exclusive": 258,
+    "frames": 211,
+    "duration_seconds": 7.033,
+    "bytes": 1380358
+  },
+  {
+    "source": "IMG_6372.MOV",
+    "key": "biodra-90-90",
+    "start_frame": 0,
+    "end_frame_exclusive": 174,
+    "frames": 174,
+    "duration_seconds": 5.8,
+    "bytes": 952086
+  },
+  {
+    "source": "IMG_6373.MOV",
+    "key": "wspiecia-palce",
+    "start_frame": 42,
+    "end_frame_exclusive": 140,
+    "frames": 98,
+    "duration_seconds": 3.267,
+    "bytes": 404017
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "source": "IMG_6396.MOV",
+    "key": "pogo-obunoz",
+    "start_frame": 23,
+    "end_frame_exclusive": 82,
+    "frames": 59,
+    "duration_seconds": 1.967,
+    "bytes": 448385
+  },
+  {
+    "source": "IMG_6400.MOV",
+    "key": "snap-down",
+    "start_frame": 35,
+    "end_frame_exclusive": 188,
+    "frames": 153,
+    "duration_seconds": 5.1,
+    "bytes": 810175
+  },
+  {
+    "source": "IMG_6402.MOV",
+    "key": "podskoki-unoszenie-kolan",
+    "start_frame": 35,
+    "end_frame_exclusive": 95,
+    "frames": 60,
+    "duration_seconds": 2.0,
+    "bytes": 542647
+  },
+  {
+    "source": "IMG_6403.MOV",
+    "key": "przeskoki-noga-noga",
+    "start_frame": 15,
+    "end_frame_exclusive": 172,
+    "frames": 157,
+    "duration_seconds": 5.233,
+    "bytes": 1156371
+  }
+]
